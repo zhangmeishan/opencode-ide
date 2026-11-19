@@ -1,0 +1,64 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.log
+
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.vscode-test/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# LaTeX intermediate files
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.toc
+*.out
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+.runtime/
+artifacts/
+test-results/
+*.vsix
+config/login.json
+config/credentials.json
+config/ide-login.json
+examples/latex-demo/main.pdf
+opencode-extension/opencode/
+opencode-extension/.memory/
+opencode-extension/.superpowers/
+opencode-extension/.worktrees/
+opencode-extension/.wdio-vscode/
+opencode-extension/package-lock.json
+opencode-extension/src/panel/webview/app/opencode-vscode-ui.code-workspace
+data/
+playwright-report/
+*.pem
+*.key
+*.p12
+*.pfx
+auth.json
+deployment.json

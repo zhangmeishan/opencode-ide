@@ -1,0 +1,54 @@
+{
+  "name": "opencode-ide-integration",
+  "displayName": "OpenCode IDE Workbench",
+  "description": "Native workbench layout and project navigation for OpenCode IDE",
+  "version": "0.1.0",
+  "publisher": "opencode-ide",
+  "license": "MIT",
+  "engines": { "vscode": "^1.114.0" },
+  "categories": ["Other", "Themes"],
+  "main": "./dist/extension.js",
+  "extensionKind": ["workspace"],
+  "extensionDependencies": ["opencode-ide.opencode-ide-chat"],
+  "activationEvents": ["onStartupFinished", "onWebviewPanel:opencode-ide.results", "onCommand:opencode-ide.syncExtensions"],
+  "contributes": {
+    "configurationDefaults": { "workbench.view.alwaysShowHeaderActions": true, "chat.disableAIFeatures": true, "chat.titleBar.signIn.enabled": false },
+    "viewsContainers": { "activitybar": [{ "id": "opencode-ide-projects", "title": "Projects", "icon": "images/projects.svg" }] },
+    "views": { "opencode-ide-projects": [{ "id": "opencode-ide.projectsView", "name": "Projects" }] },
+    "commands": [
+      { "command": "opencode-ide.syncExtensions", "title": "OpenCode IDE: Sync Open VSX Extensions", "icon": "$(sync)" },
+      { "command": "opencode-ide.restoreLayout", "title": "OpenCode IDE: Restore Default Layout", "icon": "$(layout)" },
+      { "command": "opencode-ide.openProjects", "title": "OpenCode IDE: Projects", "icon": "$(folder-library)" },
+      { "command": "opencode-ide.addProject", "title": "OpenCode IDE: Add Project", "icon": "$(add)" },
+      { "command": "opencode-ide.openProject", "title": "OpenCode IDE: Open Project" },
+      { "command": "opencode-ide.openFiles", "title": "OpenCode IDE: Files", "icon": "$(files)" },
+      { "command": "opencode-ide.openSessions", "title": "OpenCode IDE: Sessions", "icon": "$(comment-discussion)" },
+      { "command": "opencode-ide.openSearch", "title": "OpenCode IDE: Search", "icon": "$(search)" },
+      { "command": "opencode-ide.openGit", "title": "OpenCode IDE: Git", "icon": "$(source-control)" },
+      { "command": "opencode-ide.openAgent", "title": "OpenCode IDE: Chat", "icon": "$(comment)" },
+      { "command": "opencode-ide.openResult", "title": "OpenCode IDE: Open in Result Group", "icon": "$(open-preview)" },
+      { "command": "opencode-ide.showResults", "title": "OpenCode IDE: Show Result Window", "icon": "$(preview)" },
+      { "command": "opencode-ide.equalizeEditors", "title": "OpenCode IDE: Equal Editor Widths" },
+      { "command": "opencode-ide.openTerminal", "title": "OpenCode IDE: Terminal", "icon": "$(terminal)" }
+    ],
+    "menus": {
+      "view/title": [
+        { "command": "opencode-ide.addProject", "when": "view == opencode-ide.projectsView", "group": "navigation@1" },
+        { "command": "opencode-ide.openFiles", "when": "view == opencode-ide.projectsView", "group": "navigation@2" },
+        { "command": "opencode-ide.openSessions", "when": "view == opencode-ide.projectsView", "group": "navigation@3" },
+        { "command": "opencode-ide.openSearch", "when": "view == opencode-ide.projectsView", "group": "navigation@4" },
+        { "command": "opencode-ide.openGit", "when": "view == opencode-ide.projectsView", "group": "navigation@5" }
+      ],
+      "explorer/context": [{ "command": "opencode-ide.openResult", "when": "!explorerResourceIsFolder", "group": "navigation@20" }],
+      "editor/title": [{ "command": "opencode-ide.openResult", "group": "2_split@20" }]
+    },
+    "configuration": {
+      "title": "OpenCode IDE",
+      "properties": {
+        "opencode-ide.initializeLayout": { "type": "boolean", "default": false, "description": "Initialize the IDE layout once per workspace. Enabled by the dedicated launcher." },
+        "opencode-ide.extensionSyncCodeCli": { "type": "string", "default": "", "description": "Optional path to the VS Code SSH CLI used for Open VSX extension synchronization. Discovered automatically when empty." }
+      }
+    },
+    "themes": [{ "label": "OpenCode IDE", "uiTheme": "vs-dark", "path": "./themes/opencode.json" }]
+  }
+}

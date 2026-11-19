@@ -1,0 +1,541 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "opencode-ide-chat",
+  "displayName": "OpenCode IDE Chat",
+  "description": "Chat, sessions and provider settings for OpenCode IDE Web",
+  "private": true,
+  "version": "0.1.0",
+  "publisher": "opencode-ide",
+  "icon": "images/logo.png",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zhangmeishan/opencode-ide.git",
+    "directory": "opencode-extension"
+  },
+  "homepage": "https://github.com/zhangmeishan/opencode-ide#readme",
+  "bugs": {
+    "url": "https://github.com/zhangmeishan/opencode-ide/issues"
+  },
+  "engines": {
+    "vscode": "^1.94.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "opencode",
+    "ai",
+    "enhanced",
+    "assistant",
+    "sessions",
+    "remote-ssh"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:opencode-ide-chat.sessions",
+    "onView:opencode-ide-chat.sessionView",
+    "onView:opencode-ide-chat.subagents",
+    "onCommand:opencode-ide-chat.refresh",
+    "onCommand:opencode-ide-chat.newSession",
+    "onCommand:opencode-ide-chat.openSession",
+    "onCommand:opencode-ide-chat.renameSession",
+    "onCommand:opencode-ide-chat.archiveSession",
+    "onCommand:opencode-ide-chat.deleteSession",
+    "onCommand:opencode-ide-chat.shareSession",
+    "onCommand:opencode-ide-chat.unshareSession",
+    "onCommand:opencode-ide-chat.openOutput",
+    "onCommand:opencode-ide-chat.openSettings",
+    "onCommand:opencode-ide-chat.checkEnvironment",
+    "onCommand:opencode-ide-chat.refreshWorkspaceSessions",
+    "onCommand:opencode-ide-chat.openWorkspaceInBrowser",
+    "onCommand:opencode-ide-chat.restartWorkspaceServer",
+    "onCommand:opencode-ide-chat.quickNewSession",
+    "onCommand:opencode-ide-chat.askSelection",
+    "onCommand:opencode-ide-chat.askCurrentFile",
+    "onCommand:opencode-ide-chat.askExplorerFiles",
+    "onCommand:opencode-ide-chat.searchWorkspaceSessions",
+    "onCommand:opencode-ide-chat.clearWorkspaceSessionSearch",
+    "onCommand:opencode-ide-chat.manageSessionTags",
+    "onCommand:opencode-ide-chat.filterWorkspaceSessionsByTag",
+    "onCommand:opencode-ide-chat.clearWorkspaceTagFilter",
+    "onCommand:opencode-ide-chat.copyImagePreview",
+    "onCommand:opencode-ide-chat.copySelectedText",
+    "onCommand:opencode-ide-chat.saveImagePreview",
+    "onWebviewPanel:opencode-ide-chat.session"
+  ],
+  "main": "./dist/extension.js",
+  "extensionKind": [
+    "workspace"
+  ],
+  "scripts": {
+    "vscode:prepublish": "bun run package",
+    "compile": "bun run check-types && bun run lint && node esbuild.js",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "bun run check-types && bun run lint && node esbuild.js --production",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "bun test ./src/panel ./src/test",
+    "test:e2e": "bun run compile && wdio run ./wdio.conf.ts",
+    "parity:composer": "bun test src/test/parity/composer-parity.test.ts",
+    "parity:integration": "bun test src/test/parity/composer-integration.test.ts",
+    "parity:upstream": "bun run src/test/parity/check-upstream-parity.ts",
+    "parity:upstream:golden": "bun run src/test/parity/generate-upstream-golden.ts"
+  },
+  "dependencies": {
+    "@opencode-ai/sdk": "1.4.3",
+    "diff": "^8.0.3",
+    "highlight.js": "^11.11.1",
+    "jsonc-parser": "3.3.1",
+    "markdown-it": "^14.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "20.x",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@types/vscode": "^1.94.0",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "@wdio/cli": "^9.27.0",
+    "@wdio/globals": "^9.27.0",
+    "@wdio/local-runner": "^9.27.0",
+    "@wdio/mocha-framework": "^9.27.0",
+    "@wdio/spec-reporter": "^9.27.0",
+    "esbuild": "^0.25.3",
+    "eslint": "^9.25.1",
+    "expect-webdriverio": "^5.6.5",
+    "playwright": "^1.59.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.8.3",
+    "wdio-vscode-service": "^6.1.4",
+    "webdriverio": "^9.27.0"
+  },
+  "contributes": {
+    "icons": {
+      "opencode-ide-chat-logo": {
+        "description": "OpenCode OC logo",
+        "default": {
+          "fontPath": "images/activity.woff",
+          "fontCharacter": "\\E001"
+        }
+      }
+    },
+    "viewsContainers": {
+      "secondarySidebar": [
+        {
+          "id": "opencode-ide-chat-secondary",
+          "title": "OpenCode",
+          "icon": "$(opencode-ide-chat-logo)"
+        },
+        {
+          "id": "opencode-ide-chat-sessions",
+          "title": "Sessions",
+          "icon": "$(history)"
+        },
+        {
+          "id": "opencode-ide-chat-todo",
+          "title": "Todo",
+          "icon": "$(checklist)"
+        },
+        {
+          "id": "opencode-ide-chat-subagents",
+          "title": "Subagents",
+          "icon": "$(organization)"
+        },
+        {
+          "id": "opencode-ide-chat-files",
+          "title": "Modified Files",
+          "icon": "$(diff)"
+        }
+      ]
+    },
+    "views": {
+      "opencode-ide-chat-sessions": [
+        {
+          "id": "opencode-ide-chat.sessions",
+          "name": "Sessions",
+          "visibility": "visible"
+        }
+      ],
+      "opencode-ide-chat-todo": [
+        {
+          "id": "opencode-ide-chat.todo",
+          "name": "Todo",
+          "type": "webview",
+          "visibility": "visible"
+        }
+      ],
+      "opencode-ide-chat-files": [
+        {
+          "id": "opencode-ide-chat.diff",
+          "name": "Modified Files",
+          "type": "webview",
+          "visibility": "visible"
+        }
+      ],
+      "opencode-ide-chat-subagents": [
+        {
+          "id": "opencode-ide-chat.subagents",
+          "name": "Subagents",
+          "type": "webview",
+          "visibility": "visible"
+        }
+      ],
+      "opencode-ide-chat-secondary": [
+        {
+          "id": "opencode-ide-chat.sessionView",
+          "name": "OpenCode",
+          "type": "webview",
+          "visibility": "visible"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "opencode-ide-chat.refresh",
+        "title": "OpenCode: Refresh",
+        "shortTitle": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "opencode-ide-chat.newSession",
+        "title": "OpenCode: New Session",
+        "shortTitle": "New",
+        "icon": "$(add)"
+      },
+      {
+        "command": "opencode-ide-chat.openOutput",
+        "title": "OpenCode: Open Output"
+      },
+      {
+        "command": "opencode-ide-chat.openSettings",
+        "title": "OpenCode: Open Settings",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "opencode-ide-chat.checkEnvironment",
+        "title": "OpenCode: Check Environment",
+        "icon": "$(debug-alt)"
+      },
+      {
+        "command": "opencode-ide-chat.copySelectedText",
+        "title": "Copy"
+      },
+      {
+        "command": "opencode-ide-chat.copyImagePreview",
+        "title": "Copy Image"
+      },
+      {
+        "command": "opencode-ide-chat.saveImagePreview",
+        "title": "Save Image"
+      },
+      {
+        "command": "opencode-ide-chat.refreshWorkspaceSessions",
+        "title": "OpenCode: Refresh Workspace Sessions",
+        "shortTitle": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "opencode-ide-chat.openWorkspaceInBrowser",
+        "title": "OpenCode: Open Workspace In Browser",
+        "shortTitle": "Open Web",
+        "icon": "$(globe)"
+      },
+      {
+        "command": "opencode-ide-chat.openSession",
+        "title": "OpenCode: Open Session",
+        "icon": "$(arrow-right)"
+      },
+      {
+        "command": "opencode-ide-chat.renameSession",
+        "title": "OpenCode: Rename Session",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "opencode-ide-chat.archiveSession",
+        "title": "OpenCode: Archive Session",
+        "icon": "$(archive)"
+      },
+      {
+        "command": "opencode-ide-chat.deleteSession",
+        "title": "OpenCode: Delete Session",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "opencode-ide-chat.shareSession",
+        "title": "OpenCode: Share Session",
+        "icon": "$(link)"
+      },
+      {
+        "command": "opencode-ide-chat.unshareSession",
+        "title": "OpenCode: Unshare Session",
+        "icon": "$(unlock)"
+      },
+      {
+        "command": "opencode-ide-chat.restartWorkspaceServer",
+        "title": "OpenCode: Restart Workspace Server",
+        "shortTitle": "Restart",
+        "icon": "$(debug-restart)"
+      },
+      {
+        "command": "opencode-ide-chat.quickNewSession",
+        "title": "OpenCode: Quick New Session",
+        "shortTitle": "OpenCode",
+        "icon": {
+          "light": "images/button-dark.png",
+          "dark": "images/button-light.png"
+        }
+      },
+      {
+        "command": "opencode-ide-chat.askSelection",
+        "title": "OpenCode: Ask About Selection"
+      },
+      {
+        "command": "opencode-ide-chat.askCurrentFile",
+        "title": "OpenCode: Ask About Current File"
+      },
+      {
+        "command": "opencode-ide-chat.askExplorerFiles",
+        "title": "OpenCode: Ask About Selected Files"
+      },
+      {
+        "command": "opencode-ide-chat.searchWorkspaceSessions",
+        "title": "OpenCode: Search Sessions",
+        "icon": "$(search)"
+      },
+      {
+        "command": "opencode-ide-chat.clearWorkspaceSessionSearch",
+        "title": "OpenCode: Clear Session Search",
+        "icon": "$(close)"
+      },
+      {
+        "command": "opencode-ide-chat.manageSessionTags",
+        "title": "OpenCode: Manage Session Tags",
+        "icon": "$(tag)"
+      },
+      {
+        "command": "opencode-ide-chat.filterWorkspaceSessionsByTag",
+        "title": "OpenCode: Filter Sessions By Tag",
+        "icon": "$(tag)"
+      },
+      {
+        "command": "opencode-ide-chat.clearWorkspaceTagFilter",
+        "title": "OpenCode: Clear Session Tag Filter",
+        "icon": "$(close)"
+      }
+    ],
+    "configuration": {
+      "title": "OpenCode Enhanced UI",
+      "properties": {
+        "opencode-ide-chat.showThinking": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show thinking blocks in session panels.",
+          "scope": "machine-overridable"
+        },
+        "opencode-ide-chat.showInternals": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show internal transcript blocks in session panels.",
+          "scope": "machine-overridable"
+        },
+        "opencode-ide-chat.diffMode": {
+          "type": "string",
+          "default": "unified",
+          "enum": [
+            "unified",
+            "split"
+          ],
+          "markdownEnumDescriptions": [
+            "Render diffs in a unified view.",
+            "Render diffs in a split view."
+          ],
+          "description": "Choose how diffs render in session panels.",
+          "scope": "machine-overridable"
+        },
+        "opencode-ide-chat.compactSkillInvocations": {
+          "type": "boolean",
+          "default": true,
+          "description": "Render OpenCode skill usage as a compact skill marker in session panels.",
+          "scope": "machine-overridable"
+        },
+        "opencode-ide-chat.showSkillsInSlashAutocomplete": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show all skill commands directly in slash autocomplete. When enabled, the local /skills picker entry is hidden.",
+          "scope": "machine-overridable"
+        },
+        "opencode-ide-chat.panelTheme": {
+          "type": "string",
+          "default": "classic",
+          "enum": [
+            "classic",
+            "codex",
+            "claude"
+          ],
+          "markdownEnumDescriptions": [
+            "Use the standard OpenCode panel styling and follow the active VS Code light or dark theme.",
+            "Use a more tool-like panel preset with stronger framing while still following the active VS Code light or dark theme.",
+            "Use a softer panel preset with gentler surfaces while still following the active VS Code light or dark theme."
+          ],
+          "description": "Choose the visual preset for session panels. Light or dark rendering still follows the active VS Code theme.",
+          "scope": "machine-overridable"
+        },
+        "opencode-ide-chat.panelColorScheme": {
+          "type": "string",
+          "default": "default",
+          "enum": [
+            "default",
+            "nocturne",
+            "orchid",
+            "verdant",
+            "solar",
+            "graphite",
+            "ember"
+          ],
+          "markdownEnumDescriptions": [
+            "Use the color palette designed for the selected panel preset.",
+            "Use a night-focused blue, violet, cyan, and soft amber palette.",
+            "Use a muted mauve, rose, sage, and apricot palette.",
+            "Use a sage, teal, lake blue, and wheat palette for long reading sessions.",
+            "Use a solarized cyan, blue, olive, and amber palette with low fatigue contrast.",
+            "Use a neutral blue-gray, teal, brass, and copper palette.",
+            "Use a restrained ember, olive, mint, and cyan palette."
+          ],
+          "description": "Choose the color palette for session panels. Light or dark rendering still follows the active VS Code theme.",
+          "scope": "machine-overridable"
+        },
+        "opencode-ide-chat.httpProxy": {
+          "type": "string",
+          "default": "",
+          "description": "Optional HTTP_PROXY value used when launching opencode serve. Leave empty to inherit the existing environment, or fall back to VS Code http.proxy when no proxy env is present. Requires editor restart to take effect.",
+          "scope": "machine-overridable"
+        },
+        "opencode-ide-chat.opencodePath": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path to the opencode executable used to launch opencode serve. Leave empty to look up opencode on PATH. Useful when opencode is installed to a custom location. Requires editor restart to take effect.",
+          "scope": "machine-overridable"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "opencode-ide-chat.copySelectedText",
+        "key": "ctrl+c",
+        "mac": "cmd+c",
+        "when": "webviewFocus && webviewSection == 'transcript' && opencodeHasSelection"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        { "command": "opencode-ide-chat.quickNewSession", "when": "view == opencode-ide-chat.sessionView || view == opencode-ide-chat.sessions || view == opencode-ide-chat.todo || view == opencode-ide-chat.subagents || view == opencode-ide-chat.diff", "group": "navigation@1" },
+        { "command": "opencode-ide-chat.openSettings", "when": "view == opencode-ide-chat.sessionView || view == opencode-ide-chat.sessions || view == opencode-ide-chat.todo || view == opencode-ide-chat.subagents || view == opencode-ide-chat.diff", "group": "navigation@0" }
+      ],
+      "editor/context": [
+        {
+          "command": "opencode-ide-chat.askSelection",
+          "when": "editorTextFocus && editorHasSelection",
+          "group": "navigation@1"
+        },
+        {
+          "command": "opencode-ide-chat.askCurrentFile",
+          "when": "editorTextFocus",
+          "group": "navigation@2"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "opencode-ide-chat.askExplorerFiles",
+          "when": "!explorerResourceIsFolder",
+          "group": "navigation@1"
+        }
+      ],
+      "webview/context": [
+        {
+          "command": "opencode-ide-chat.copySelectedText",
+          "when": "webviewSection == 'transcript' && opencodeHasSelection",
+          "group": "navigation@1"
+        },
+        {
+          "command": "opencode-ide-chat.copyImagePreview",
+          "when": "webviewId == 'opencode-ide-chat.session' && webviewSection == 'imagePreview'",
+          "group": "navigation@1"
+        },
+        {
+          "command": "opencode-ide-chat.saveImagePreview",
+          "when": "webviewId == 'opencode-ide-chat.session' && webviewSection == 'imagePreview'",
+          "group": "navigation@2"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "opencode-ide-chat.newSession",
+          "when": "view == opencode-ide-chat.sessions && (viewItem == workspace || viewItem == workspace-searching || viewItem == workspace-tag-filtered || viewItem == workspace-filtered)",
+          "group": "inline@1"
+        },
+        {
+          "command": "opencode-ide-chat.searchWorkspaceSessions",
+          "when": "view == opencode-ide-chat.sessions && (viewItem == workspace || viewItem == workspace-searching || viewItem == workspace-tag-filtered || viewItem == workspace-filtered)",
+          "group": "inline@2"
+        },
+        {
+          "command": "opencode-ide-chat.refreshWorkspaceSessions",
+          "when": "view == opencode-ide-chat.sessions && (viewItem == workspace || viewItem == workspace-searching || viewItem == workspace-tag-filtered || viewItem == workspace-filtered)",
+          "group": "inline@3"
+        },
+        {
+          "command": "opencode-ide-chat.openWorkspaceInBrowser",
+          "when": "view == opencode-ide-chat.sessions && (viewItem == workspace || viewItem == workspace-searching || viewItem == workspace-tag-filtered || viewItem == workspace-filtered)",
+          "group": "inline@4"
+        },
+        {
+          "command": "opencode-ide-chat.filterWorkspaceSessionsByTag",
+          "when": "view == opencode-ide-chat.sessions && (viewItem == workspace || viewItem == workspace-searching || viewItem == workspace-tag-filtered || viewItem == workspace-filtered)",
+          "group": "inline@2"
+        },
+        {
+          "command": "opencode-ide-chat.clearWorkspaceSessionSearch",
+          "when": "view == opencode-ide-chat.sessions && (viewItem == workspace-searching || viewItem == workspace-filtered)",
+          "group": "inline@3"
+        },
+        {
+          "command": "opencode-ide-chat.clearWorkspaceTagFilter",
+          "when": "view == opencode-ide-chat.sessions && (viewItem == workspace-tag-filtered || viewItem == workspace-filtered)",
+          "group": "inline@4"
+        },
+        {
+          "command": "opencode-ide-chat.renameSession",
+          "when": "view == opencode-ide-chat.sessions && (viewItem == session || viewItem == session-shared)",
+          "group": "inline@1"
+        },
+        {
+          "command": "opencode-ide-chat.deleteSession",
+          "when": "view == opencode-ide-chat.sessions && (viewItem == session || viewItem == session-shared)",
+          "group": "inline@5"
+        },
+        {
+          "command": "opencode-ide-chat.manageSessionTags",
+          "when": "view == opencode-ide-chat.sessions && (viewItem == session || viewItem == session-shared)",
+          "group": "inline@4"
+        },
+        {
+          "command": "opencode-ide-chat.clearWorkspaceSessionSearch",
+          "when": "view == opencode-ide-chat.sessions && viewItem == clear-search",
+          "group": "inline@1"
+        },
+        {
+          "command": "opencode-ide-chat.clearWorkspaceTagFilter",
+          "when": "view == opencode-ide-chat.sessions && viewItem == clear-tag-filter",
+          "group": "inline@1"
+        }
+      ]
+    }
+  },
+  "packageManager": "bun@1.3.10"
+}

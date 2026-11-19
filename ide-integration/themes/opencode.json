@@ -1,0 +1,26 @@
+{
+  "name": "OpenCode IDE", "type": "dark",
+  "colors": {
+    "focusBorder": "#65a6ff", "foreground": "#dce5f2", "descriptionForeground": "#8092a9",
+    "editor.background": "#0b1018", "editor.foreground": "#dce5f2", "editorLineNumber.foreground": "#52657e",
+    "editorGroup.border": "#2a3749", "editorGroupHeader.tabsBackground": "#101722",
+    "tab.activeBackground": "#1b2635", "tab.inactiveBackground": "#101722", "tab.activeBorderTop": "#65a6ff",
+    "sideBar.background": "#101722", "sideBar.foreground": "#dce5f2", "sideBar.border": "#2a3749",
+    "sideBarSectionHeader.background": "#151e2b", "sideBarTitle.foreground": "#dce5f2",
+    "activityBar.background": "#0b1018", "activityBar.foreground": "#65a6ff", "activityBar.border": "#2a3749",
+    "titleBar.activeBackground": "#101723", "titleBar.activeForeground": "#dce5f2",
+    "panel.background": "#0b1018", "panel.border": "#2a3749", "panelTitle.activeBorder": "#67e6c4",
+    "terminal.background": "#0b1018", "terminal.foreground": "#dce5f2",
+    "statusBar.background": "#151e2b", "statusBar.foreground": "#8092a9", "statusBar.border": "#2a3749",
+    "button.background": "#285eb0", "button.foreground": "#ffffff", "button.hoverBackground": "#3472cc",
+    "input.background": "#1a2432", "input.border": "#2a394b", "list.activeSelectionBackground": "#203653",
+    "list.hoverBackground": "#1b2635", "badge.background": "#285eb0", "progressBar.background": "#67e6c4"
+  },
+  "tokenColors": [
+    { "scope": ["comment"], "settings": { "foreground": "#8092a9" } },
+    { "scope": ["keyword", "storage"], "settings": { "foreground": "#b49bff" } },
+    { "scope": ["string"], "settings": { "foreground": "#67e6c4" } },
+    { "scope": ["constant.numeric"], "settings": { "foreground": "#e9c077" } },
+    { "scope": ["entity.name.function", "support.function"], "settings": { "foreground": "#65a6ff" } }
+  ]
+}

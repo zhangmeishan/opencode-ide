@@ -1,0 +1,19 @@
+{
+  "workbench.colorTheme": "OpenCode IDE",
+  "workbench.startupEditor": "none",
+  "workbench.sideBar.location": "left",
+  "workbench.panel.defaultLocation": "bottom",
+  "workbench.editor.showTabs": "multiple",
+  "workbench.editor.enablePreview": false,
+  "workbench.secondarySideBar.defaultVisibility": "visible",
+  "workbench.view.alwaysShowHeaderActions": true,
+  "chat.disableAIFeatures": true,
+  "window.title": "${activeEditorShort}${separator}${rootName}${separator}OpenCode IDE",
+  "window.commandCenter": true,
+  "files.autoSave": "off",
+  "opencode-ide.initializeLayout": true,
+  "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.view.pdf.tab.editorGroup": "active",
+  "latex-workshop.latex.autoBuild.run": "never",
+  "telemetry.telemetryLevel": "off"
+}

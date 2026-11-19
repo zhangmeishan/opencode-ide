@@ -1,98 +1,137 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>OpenCode IDE · Agent-first LaTeX Workspace</title>
-<style>
-:root{--bg:#0b1018;--panel:#101722;--panel2:#151e2b;--panel3:#1b2635;--edge:#2a3749;--txt:#dce5f2;--muted:#8092a9;--blue:#65a6ff;--teal:#67e6c4;--purple:#b49bff;--yellow:#e9c077;--red:#ff8996;--wleft:235px;--wright:345px;--editratio:52%;font-family:Inter,ui-sans-serif,system-ui,'Segoe UI',Arial,sans-serif;color-scheme:dark}*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--txt);font-size:13px}button,input,select,textarea{font:inherit}button{border:0;cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--blue);outline-offset:2px}button{color:inherit}.app{height:100vh;min-height:620px;display:flex;flex-direction:column}.topbar{height:46px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 15px;border-bottom:1px solid var(--edge);background:#101723;gap:14px}.brand{font-weight:750;display:flex;align-items:center;gap:9px;font-size:14px;white-space:nowrap}.logo{width:23px;height:23px;border-radius:7px;background:linear-gradient(135deg,#3c91fb,#51d9b4);color:#061421;display:grid;place-items:center;font-weight:900}.topcenter{display:flex;align-items:center;gap:10px;min-width:0}.path{background:#1a2432;color:#c6d5e8;border:1px solid #2a394b;border-radius:7px;padding:6px 13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:440px;font-size:12px}.topright{display:flex;align-items:center;gap:9px;white-space:nowrap}.pill{border:1px solid #34574e;border-radius:15px;color:#74d7bd;background:#153329;padding:4px 8px;font-size:10px}.iconbtn,.tinybtn{border:1px solid transparent;border-radius:6px;background:transparent;color:#a9bdd4;min-width:27px;height:26px;padding:0 7px}.iconbtn:hover,.tinybtn:hover{background:#273448;color:white}.primary{background:#285eb0;color:#fff;border:1px solid #3e78cb;border-radius:7px;padding:7px 11px}.primary:hover{background:#3472cc}.secondary{background:#1e2c3d;border:1px solid #35485f;border-radius:7px;padding:6px 10px;color:#c8d8ec}.secondary:hover{background:#2a3b50}.workspace{flex:1;min-height:0;display:flex;overflow:hidden}.sidebar{width:var(--wleft);min-width:185px;max-width:330px;flex-shrink:0;background:#101721;border-right:1px solid var(--edge);display:flex;flex-direction:column}.right{width:var(--wright);min-width:275px;max-width:525px;flex-shrink:0;background:#111925;border-left:1px solid var(--edge);display:flex;flex-direction:column}.center{flex:1;min-width:420px;display:flex;flex-direction:column;overflow:hidden}.sidehead{padding:13px 12px 10px;display:flex;justify-content:space-between;align-items:center}.eyebrow{font-size:10px;color:#7b8ca4;font-weight:700;letter-spacing:.11em;text-transform:uppercase}.lefttabs,.righttabs{display:flex;gap:3px;padding:0 8px 7px;border-bottom:1px solid var(--edge)}.tab{border:0;background:transparent;color:#8194ab;padding:8px 10px;border-radius:6px;font-size:12px;white-space:nowrap}.tab.active{background:#25364a;color:#e2edff}.tab:hover{color:white}.sidebody{overflow:auto;flex:1;padding:11px 9px}.section-title{font-size:11px;color:#8295ae;font-weight:700;text-transform:uppercase;padding:6px 9px;display:flex;justify-content:space-between}.tree{padding:0;margin:0;list-style:none}.tree li{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:6px;color:#b9c9dd;cursor:pointer;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.tree li:hover,.tree li.selected{background:#213248}.tree li.selected{color:#e7f1ff}.indent{padding-left:25px!important}.treeicon{color:#8ca0b8;width:15px;text-align:center}.session{display:block;width:100%;text-align:left;background:transparent;border-radius:8px;padding:10px 10px;margin-bottom:5px}.session:hover,.session.selected{background:#213248}.session b{display:block;font-size:12px;font-weight:600;margin-bottom:5px}.session small{color:#8196ad}.dot{width:6px;height:6px;border-radius:50%;display:inline-block;background:#58cfa6;margin-right:5px}.sidefoot{border-top:1px solid var(--edge);padding:10px 12px;color:#8fa1b6;font-size:11px}.worktop{height:43px;flex-shrink:0;border-bottom:1px solid var(--edge);background:#121b27;display:flex;align-items:center;justify-content:space-between;padding:0 12px;gap:8px}.worktop strong{font-size:12px}.worktop .controls{display:flex;align-items:center;gap:6px}.worktop .controls input{accent-color:#69a7ff;width:94px}.split{flex:1;min-height:0;display:flex;gap:0}.editorpane{width:var(--editratio);min-width:240px;display:flex;flex-direction:column;overflow:hidden;background:#111822}.pdfpane{flex:1;min-width:200px;display:flex;flex-direction:column;overflow:hidden;background:#131b27}.dividerdrag{width:6px;background:#263244;border-left:1px solid #334255;border-right:1px solid #334255;cursor:col-resize;flex-shrink:0;position:relative}.dividerdrag:after{content:'⋮';position:absolute;left:-2px;top:46%;font-size:18px;color:#8099b3}.panehead{height:37px;flex-shrink:0;display:flex;justify-content:space-between;align-items:center;padding:0 8px;border-bottom:1px solid var(--edge);background:#17212e;gap:5px}.filetabs{display:flex;gap:3px;align-items:center;min-width:0;overflow:auto;scrollbar-width:none}.filetab{display:flex;align-items:center;gap:6px;border-radius:5px;padding:7px 10px;background:transparent;color:#8e9fb6;white-space:nowrap;font-size:11px}.filetab.active{color:#e2edff;background:#28384a}.filetab:hover{color:white}.filetab span{color:#e0bd8b}.pane-tools{display:flex;gap:2px;align-items:center}.editarea{flex:1;min-height:0;display:flex;overflow:auto;background:#111822}.gutter{flex-shrink:0;padding:16px 8px 20px 11px;background:#111822;color:#53677c;text-align:right;line-height:22px;user-select:none;font-family:Consolas,Monaco,monospace;white-space:pre}.code{width:100%;resize:none;background:transparent;outline:none!important;border:0;padding:16px 16px 40px 8px;color:#d5e4f7;line-height:22px;font:12.5px/22px Consolas,'Cascadia Code',monospace;tab-size:2;white-space:pre;min-width:0}.status{height:27px;flex-shrink:0;border-top:1px solid var(--edge);display:flex;align-items:center;justify-content:space-between;padding:0 10px;background:#111c2a;color:#8da2b8;font-size:10px}.status strong{color:#76d1b5;font-weight:500}.pdfscroll{overflow:auto;flex:1;min-height:0;background:#252d38;padding:22px 24px;display:flex;align-items:flex-start;justify-content:center}.paper{background:#fff;color:#20242b;width:100%;max-width:495px;min-width:185px;min-height:590px;box-shadow:0 4px 20px #0006;padding:11% 10%;font-family:'Times New Roman',Georgia,serif;transform-origin:top center}.paper h1{font-size:clamp(13px,1.5vw,20px);text-align:center;line-height:1.3;margin:4px 0 13px}.paper .author{text-align:center;font-size:11px;margin-bottom:23px}.paper h2{font-size:14px;margin:14px 0 7px}.paper p{font-size:11px;line-height:1.6;text-align:justify;margin:8px 0}.paper .abstract{border-top:1px solid #444;border-bottom:1px solid #444;padding:8px 0}.paper .eq{text-align:center;margin:19px 0;font-size:15px;font-style:italic}.paper .page-number{text-align:center;margin-top:50px;color:#999;font-size:10px}.runlog{height:160px;flex-shrink:0;border-top:1px solid var(--edge);display:flex;flex-direction:column;background:#0d151e}.loghead{height:34px;display:flex;align-items:center;gap:14px;padding:0 12px;border-bottom:1px solid var(--edge)}.loghead button{font-size:11px;color:#8ca0b9;background:none}.loghead button.active{color:#dae8f8}.log{padding:9px 13px;overflow:auto;flex:1;color:#a3b4c7;font:11px/19px Consolas,monospace;white-space:pre-wrap}.ok{color:#7ad9b9}.warn{color:#edc878}.err{color:#ff9099}.rightbody{flex:1;min-height:0;overflow:auto;padding:12px 12px}.chatmsg{margin-bottom:14px}.chatmsg.user{margin-left:24px;background:#24374a;border:1px solid #2f4a67;padding:10px 11px;border-radius:10px;color:#e5edfc}.chatname{color:#8c9eb5;font-size:10px;font-weight:700;margin-bottom:6px}.chatmsg.assistant{padding:3px 2px;line-height:1.65}.chatmsg.assistant p{margin:6px 0}.event{border:1px solid #344359;border-radius:8px;overflow:hidden;margin:11px 0;background:#172331}.eventtop{display:flex;justify-content:space-between;align-items:center;padding:8px 9px;font-size:11px}.eventbody{padding:9px 10px;border-top:1px solid #2c3c4f;color:#a8bdd4;font:11px/18px Consolas,monospace}.eventbody code{color:#9fd3ff}.eventfooter{padding:7px 9px;border-top:1px solid #2c3c4f;display:flex;justify-content:space-between;align-items:center}.chatcomposer{padding:10px 12px;border-top:1px solid var(--edge);background:#151f2c}.chatcomposer textarea{resize:vertical;min-height:78px;max-height:170px;width:100%;background:#0f1823;color:#deebff;border:1px solid #34475e;border-radius:8px;padding:11px;outline:none;font-size:12px}.composebar{display:flex;justify-content:space-between;align-items:center;padding-top:8px;gap:6px}.model{font-size:11px;color:#a0b4c8}.plugin{background:#182433;border:1px solid #2d3f53;border-radius:10px;padding:11px;margin-bottom:10px}.pluginhead{display:flex;justify-content:space-between;align-items:center}.pluginname{font-size:12px;font-weight:700}.plugintext{font-size:11px;color:#9baec5;line-height:1.6;margin:6px 0}.plugactions{display:flex;gap:7px;margin-top:8px}.tag{font-size:10px;color:#74d3ba;background:#1a3c38;border-radius:4px;padding:3px 6px}.tag.yellow{background:#4a3b20;color:#f2d186}.plugin-tools{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:9px 0}.plugin-tools button{background:#223349;border:1px solid #324961;padding:8px;border-radius:7px;text-align:left;font-size:11px}.plugin-tools button:hover{background:#304963}.checkline{display:flex;align-items:center;gap:8px;color:#aabdd1;padding:8px 4px;font-size:12px}.checkline input{accent-color:#69a7ff}.hidden{display:none!important}.scrollnote{font-size:11px;color:#a4b7cb;line-height:1.5;padding:9px 10px;background:#1e2c3b;border-radius:7px;margin-bottom:10px}.metric{display:flex;justify-content:space-between;margin:10px 0;font-size:11px;color:#adc0d3}.metric b{font-weight:500;color:#dce7f5}.kbd{border:1px solid #3c4c60;border-radius:4px;padding:2px 5px;font-size:10px;color:#abbccf}.smallprint{color:#788da5;font-size:10px;line-height:1.5}.mobiletoggle{display:none}@media(max-width:1160px){:root{--wleft:205px;--wright:305px}.topcenter{display:none}.paper{min-height:450px}}@media(max-width:890px){.sidebar{display:none}.right{width:310px}.center{min-width:320px}.worktop .controls input{width:70px}}@media(max-width:650px){.workspace{flex-direction:column}.center{min-height:480px}.right{width:100%;max-width:none;min-height:260px;max-height:45vh}.paper{min-height:300px}.runlog{height:110px}.topright .pill{display:none}.mobiletoggle{display:block}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenCode IDE · 布局演示</title>
+  <style>
+    :root { color-scheme: dark; font: 14px system-ui, sans-serif; color: #dce5f2; background: #0b1018; --line: #2a3749; --muted: #91a3ba; --blue: #65a6ff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button, input, textarea, select { font: inherit; color: inherit; }
+    button { cursor: pointer; background: #172438; border: 1px solid var(--line); border-radius: 5px; padding: 7px 10px; }
+    button:hover, button[aria-selected="true"] { background: #24436a; }
+    button:focus-visible, textarea:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+    [hidden] { display: none !important; }
+    .app { height: 100vh; min-height: 540px; display: grid; grid-template-rows: auto 1fr auto; }
+    .topbar, .status, .panehead { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: #101722; border-bottom: 1px solid var(--line); }
+    .topbar { flex-wrap: wrap; }
+    .brand { color: #80bdff; font-weight: 700; }
+    .badge { color: #e9c077; background: #30291b; padding: 4px 8px; border-radius: 4px; }
+    .workspace { display: flex; min-height: 0; }
+    .activity { width: 48px; flex-shrink: 0; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 12px; padding: 8px 4px; }
+    .activity button { padding: 8px 3px; }
+    .files { width: 190px; flex-shrink: 0; border-right: 1px solid var(--line); padding: 12px; background: #101722; }
+    .files button { display: block; margin: 8px 0; width: 100%; text-align: left; }
+    .center { flex: 1; display: flex; flex-direction: column; min-width: 180px; min-height: 0; }
+    .editor { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+    .panehead { flex-wrap: wrap; }
+    .panehead .actions { margin-left: auto; }
+    .code { flex: 1; width: 100%; resize: none; background: #0b1018; border: 0; padding: 24px; font: 14px/1.8 ui-monospace, monospace; }
+    .page { padding: 24px; overflow: auto; }
+    .page p, small { color: var(--muted); line-height: 1.7; }
+    .terminal { height: 150px; flex-shrink: 0; border-top: 1px solid var(--line); background: #101722; }
+    .terminal pre { padding: 0 16px; white-space: pre-wrap; color: #8fddc7; }
+    .right { width: 440px; min-width: 260px; max-width: 65vw; flex-shrink: 0; border-left: 1px solid var(--line); display: flex; flex-direction: column; min-height: 0; background: #101722; }
+    .tabs { display: flex; overflow-x: auto; gap: 3px; padding: 8px; border-bottom: 1px solid var(--line); flex-shrink: 0; }
+    .tabs button { white-space: nowrap; font-size: 12px; }
+    .module { flex: 1; min-height: 0; overflow: auto; padding: 16px; }
+    #panel-chat { display: flex; flex-direction: column; }
+    #messages { flex: 1; overflow: auto; min-height: 70px; }
+    .message { padding: 12px; margin-bottom: 12px; border: 1px solid var(--line); border-radius: 6px; white-space: pre-wrap; }
+    #composer { display: grid; gap: 8px; margin-top: 12px; }
+    #prompt { width: 100%; min-height: 85px; resize: vertical; background: #0b1018; border: 1px solid var(--line); padding: 10px; }
+    .session { width: 100%; text-align: left; margin: 6px 0; }
+    .status { border-top: 1px solid var(--line); border-bottom: 0; font-size: 12px; flex-wrap: wrap; }
+    #notice { flex: 1; }
+    .settings label { display: block; margin: 14px 0; }
+    .settings input, .settings select { display: block; width: 100%; max-width: 480px; margin-top: 6px; padding: 8px; background: #101722; border: 1px solid var(--line); }
+    .settings { overflow: auto; }
+    @media (max-width: 780px) { .right { width: 42vw; min-width: 240px; } .files { position: absolute; top: 80px; bottom: 40px; z-index: 2; } .code { padding: 12px; } }
+  </style>
 </head>
 <body>
 <div class="app">
- <header class="topbar"><div class="brand"><div class="logo">◈</div>OpenCode IDE <span style="color:#6e829c;font-size:11px;font-weight:400">/ LaTeX Studio</span></div><div class="topcenter"><span class="path">⌂ &nbsp; research-paper / main.tex</span><span class="pill">● OpenCode 已连接</span></div><div class="topright"><button class="secondary" id="pluginShortcut">♧ 活跃插件 <b id="count" style="color:var(--teal)">3</b></button><button class="primary" id="compileTop">▶ 编译 PDF</button><button class="iconbtn" id="settingsBtn" title="设置">⚙</button></div></header>
- <div class="workspace">
-  <aside class="sidebar"><div class="sidehead"><div class="eyebrow">Workspace</div><button class="tinybtn" title="添加项目" id="addProject">＋</button></div><div class="lefttabs"><button class="tab active" data-left="project">项目</button><button class="tab" data-left="sessions">Sessions</button><button class="tab" data-left="files">文件</button></div>
-   <div class="sidebody" id="left-project"><div class="section-title">最近项目 <span>＋</span></div><ul class="tree"><li class="selected">▾ &nbsp; 📁 &nbsp; research-paper</li><li>▸ &nbsp; 📁 &nbsp; agent-benchmark</li><li>▸ &nbsp; 📁 &nbsp; motor-design</li></ul><div class="section-title" style="margin-top:17px">当前项目文件 <span>⟳</span></div><ul class="tree" id="fileTree"><li>▾ &nbsp; 📁 &nbsp; chapters</li><li class="indent" data-file="intro.tex">◈ &nbsp; intro.tex</li><li class="indent" data-file="method.tex">◈ &nbsp; method.tex</li><li data-file="main.tex" class="selected">◈ &nbsp; main.tex</li><li data-file="references.bib">▣ &nbsp; references.bib</li><li>📁 &nbsp; figures</li><li data-result="pdf">▤ &nbsp; main.pdf <span style="font-size:10px;color:#7bd4b8">output</span></li></ul><div class="section-title" style="margin-top:17px">Agent Sessions <span>＋</span></div><button class="session selected" data-session="论文修改与编译"><b>● 论文修改与编译</b><small>当前 · 正在编辑 main.tex</small></button><button class="session" data-session="审稿意见修改"><b>审稿意见修改</b><small>昨天 · 17 条消息</small></button></div>
-   <div class="sidebody hidden" id="left-sessions"><div class="section-title">OpenCode Sessions <button class="tinybtn" id="newSession">＋ 新建</button></div><button class="session selected" data-session="论文修改与编译"><b>● 论文修改与编译</b><small>主会话 · 8 min ago</small></button><button class="session" data-session="审稿意见修改"><b>审稿意见修改</b><small>22 messages · Yesterday</small></button><button class="session" data-session="论文参考文献检查"><b>论文参考文献检查</b><small>10 messages · Monday</small></button><div class="scrollnote">会话与项目关联；切换 Session 不会覆盖你正在编辑的文件或 PDF 结果窗口。</div></div>
-   <div class="sidebody hidden" id="left-files"><div class="section-title">research-paper</div><ul class="tree"><li>▾ &nbsp; 📁 &nbsp; chapters</li><li class="indent" data-file="intro.tex">◈ &nbsp; intro.tex</li><li class="indent" data-file="method.tex">◈ &nbsp; method.tex</li><li data-file="main.tex" class="selected">◈ &nbsp; main.tex</li><li data-file="references.bib">▣ &nbsp; references.bib</li><li>📁 &nbsp; figures</li><li data-result="pdf">▤ &nbsp; main.pdf</li></ul></div>
-   <div class="sidefoot">⎇ main &nbsp; · &nbsp; ▣ 4 files &nbsp; · &nbsp; ◉ LaTeX workspace</div>
-  </aside>
-  <main class="center"><div class="worktop"><div style="display:flex;align-items:center;gap:9px"><strong>工作区</strong><span style="color:var(--muted);font-size:11px">源码编辑 ⇄ 编译结果 · 双窗口</span></div><div class="controls"><span style="color:#8fa3b9;font-size:11px">编辑器宽度</span><input type="range" min="30" max="70" value="52" id="splitRange" aria-label="编辑器宽度"><button class="tinybtn" id="equalSplit" title="恢复 1:1">1:1</button><button class="tinybtn" id="swapViews" title="互换编辑与 PDF 左右位置">⇄</button></div></div>
-   <div class="split" id="split">
-    <section class="editorpane" id="editorPane"><div class="panehead"><div class="filetabs" id="fileTabs"><button class="filetab active" data-code="main.tex"><span>◈</span>main.tex</button><button class="filetab" data-code="references.bib"><span>▣</span>references.bib</button></div><div class="pane-tools"><button class="tinybtn" id="saveBtn" title="保存源码 Ctrl+S">⌑</button><button class="tinybtn" id="editFocus" title="聚焦源码">⛶</button></div></div><div class="editarea"><div class="gutter" id="gutter"></div><textarea spellcheck="false" id="source" class="code" aria-label="LaTeX 源码编辑"></textarea></div><div class="status"><span id="sourceStatus">TeX · UTF-8 · 已保存</span><span>LaTeX Workshop · <strong>● 已启用</strong></span></div></section>
-    <div class="dividerdrag" id="drag" title="拖拽调整独立窗口宽度" role="separator" aria-orientation="vertical"></div>
-    <section class="pdfpane" id="pdfPane"><div class="panehead"><div class="filetabs"><button class="filetab active" id="pdfTab">▤ &nbsp; main.pdf <span id="pdfVersion" style="color:#8c9ab1">· 构建 #12</span></button></div><div class="pane-tools"><button class="tinybtn" id="zoomOut" title="缩小 PDF">−</button><span id="zoomLabel" style="font-size:10px;color:#b1c2d5">100%</span><button class="tinybtn" id="zoomIn" title="放大 PDF">＋</button><button class="tinybtn" id="resultRefresh" title="刷新编译结果">⟳</button></div></div><div class="pdfscroll" id="pdfscroll"><article class="paper" id="paper"><h1>Agent-Driven Research Workflows<br>for Scientific Writing</h1><div class="author">OpenCode Research Group<br><small>November 2026</small></div><div class="abstract"><p><b>Abstract—</b>We investigate an integrated scientific authoring workflow in which an autonomous coding assistant collaborates with a LaTeX editing environment, compilation tools, and iterative PDF validation.</p></div><h2>1. Introduction</h2><p>Recent progress in foundation models has enabled new approaches to scientific writing and software development. However, researchers still alternate between source editing, compilation and reading rendered output.</p><p>Our environment separates these activities into two persistent windows. A source editor supports code intelligence, while a result viewer presents the latest compiled artifact.</p><h2>2. Method</h2><p>We establish a modular bridge between an agent service and a standard development workbench. Extensions offer rich language support, diagnostics, compilation and references management.</p><div class="eq">L = L<sub>task</sub> + λ L<sub>feedback</sub></div><h2>3. Experiments</h2><p>The prototype supports context-rich agent interaction, task execution and direct inspection of output files. Compilation errors can be passed to the assistant without abandoning the editor.</p><div class="page-number">1</div></article></div><div class="status"><span id="pdfStatus">✓ 最近编译成功 · 12 秒前</span><span>PDF 结果窗口 · 独立滚动</span></div></section>
-   </div>
-   <div class="runlog" id="runlog"><div class="loghead"><button class="active" data-logtab="output">● 编译输出</button><button data-logtab="problems">问题 <span id="problemCount">0</span></button><button data-logtab="task">Agent 执行过程</button><span style="flex:1"></span><button id="toggleLog" title="收起日志">⌄</button></div><div class="log" id="log">[LaTeX Workshop] Recipe: latexmk (pdfLaTeX)
-<span class="ok">[Success]</span> Output generated: main.pdf
-[SyncTeX] Source ↔ PDF mapping ready
-[Tools] bibtex / latexmk / pdfLaTeX available
-</div></div>
-  </main>
-  <aside class="right"><div class="sidehead"><div><div class="eyebrow">Agent & Tools</div><div style="font-weight:750;margin-top:5px">论文修改与编译</div></div><button class="tinybtn" id="rightExpand" title="加宽 Agent 面板">⇥</button></div><div class="righttabs"><button class="tab active" data-right="chat">对话</button><button class="tab" data-right="process">过程</button><button class="tab" data-right="plugins">插件 <span style="color:#75e1bb">●</span></button><button class="tab" data-right="tools">工具</button></div>
-   <div class="rightbody" id="right-chat"><div id="chatHistory"><div class="chatmsg user"><div class="chatname">YOU · 10:24</div>检查论文的 LaTeX 编译错误，修复引用并重新编译。</div><div class="chatmsg assistant"><div class="chatname">✦ OPENCODE AGENT · 10:24</div><p>已检查 <b>main.tex</b> 与 <b>references.bib</b>，当前编译成功。</p><div class="event"><div class="eventtop"><span>⚙ &nbsp; Tool: bash</span><span class="tag">成功</span></div><div class="eventbody"><code>latexmk -pdf -interaction=nonstopmode main.tex</code><br><span class="ok">Exit code 0 · main.pdf updated</span></div><div class="eventfooter"><span style="color:#90a7c0;font-size:10px">已运行 · 2.1s</span><button class="tinybtn" data-action="showlog">查看日志 ↗</button></div></div><p>PDF 编译结果已经显示在中间右侧的独立预览窗口，可以与源码同时查看。</p></div></div></div>
-   <div class="rightbody hidden" id="right-process"><div class="scrollnote"><b>执行过程控制</b><br>Agent 的计划、工具调用、编译结果与审批统一展示。此处为交互原型，不会实际执行系统命令。</div><div class="section-title">当前计划</div><label class="checkline"><input type="checkbox" checked>检查 LaTeX 文档结构</label><label class="checkline"><input type="checkbox" checked>检索引用和 BibTeX 条目</label><label class="checkline"><input type="checkbox" checked>运行 latexmk 编译</label><label class="checkline"><input type="checkbox">核对 PDF 排版与页码</label><div class="section-title" style="margin-top:15px">运行管理</div><div class="metric"><span>当前 Session</span><b id="processSession">论文修改与编译</b></div><div class="metric"><span>编译任务</span><b id="taskStatus">空闲</b></div><div class="metric"><span>最近结果</span><b style="color:var(--teal)">构建成功</b></div><div class="plugin-tools"><button id="processRun">▶ 重新编译</button><button id="processLog">▤ 查看执行日志</button></div><div class="section-title" style="margin-top:14px">交互策略</div><label class="checkline"><input type="checkbox" checked>工具调用完成后自动同步结果</label><label class="checkline"><input type="checkbox" checked>编译错误附带日志给 Agent</label><label class="checkline"><input type="checkbox">修改文件前要求人工确认</label></div>
-   <div class="rightbody hidden" id="right-plugins"><div class="scrollnote">此处<strong>自动置顶当前工作区正在使用的插件</strong>（原型使用模拟数据）。真实版本从 VS Code Extension Host 查询插件状态，并关联最近使用的命令与文件类型。</div><div class="section-title">当前活跃 · LaTeX <span style="color:#80d9bd" id="pluginCountLabel">3 个</span></div><div id="activePlugins"></div><div class="section-title" style="margin-top:18px">已安装 · 非当前活跃</div><div class="plugin" style="opacity:.8"><div class="pluginhead"><span class="pluginname">Python</span><span class="tag yellow">未激活</span></div><div class="plugintext">Python 语言支持。打开 .py 文件后按需激活。</div></div><button class="secondary" id="managePlugins" style="width:100%">＋ 管理 / 搜索插件</button></div>
-   <div class="rightbody hidden" id="right-tools"><div class="scrollnote">将工作区常用能力统一在此，避免 VS Code 原有工具栏一直占用空间。</div><div class="section-title">LaTeX 工具</div><div class="plugin-tools"><button id="toolCompile">▶ 编译 PDF</button><button id="toolForward">↗ 正向定位 PDF</button><button id="toolBib">▣ 打开 BibTeX</button><button id="toolErrors">⚠ 查看问题</button><button id="toolClean">⌫ 清除缓存</button><button id="toolAgent">✦ 分析编译日志</button></div><div class="section-title" style="margin-top:18px">快捷键</div><div class="metric"><span>保存源文件</span><span class="kbd">Ctrl + S</span></div><div class="metric"><span>编译 LaTeX</span><span class="kbd">Ctrl + Alt + B</span></div><div class="metric"><span>切换插件</span><span class="kbd">点击右侧 插件</span></div><div class="section-title" style="margin-top:18px">编译命令</div><div class="eventbody">latexmk -pdf main.tex</div></div>
-   <footer class="chatcomposer"><textarea id="prompt" placeholder="给 Agent 发送任务，例如：检查参考文献、修复排版、优化摘要..."></textarea><div class="composebar"><span class="model">✦ OpenCode · Build Agent <span style="color:#7a90aa">▾</span></span><button class="primary" id="send">发送 ↗</button></div></footer>
-  </aside>
- </div>
-</div>
-<script>
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];const names={main:'main.tex',bib:'references.bib'};
-const files={'main.tex':String.raw`\documentclass[conference]{IEEEtran}
-\usepackage{amsmath,graphicx}
-\usepackage{hyperref}
-\usepackage{cite}
-
-\title{Agent-Driven Research Workflows
-for Scientific Writing}
-\author{OpenCode Research Group}
-
+  <header class="topbar"><span class="brand">◈ OpenCode IDE</span><span class="badge">布局演示 · 无后端</span><small>实际部署需要 WebUI 登录；本页不连接 code-server 或模型。</small></header>
+  <div class="workspace">
+    <nav class="activity" aria-label="原生工具入口">
+      <button id="filesToggle" title="文件" aria-label="切换文件栏" aria-expanded="false">▤</button>
+      <button data-note="实际 IDE 使用原生 Search。" title="搜索">⌕</button>
+      <button data-note="实际 IDE 使用原生 Git。" title="Git">⑂</button>
+      <button data-note="扩展同步：按 Open VSX ID 可用性判断，OpenCode 专用扩展排除。演示不安装扩展。" title="扩展">⊞</button>
+      <button data-note="实际 IDE 的 Manage 设置入口。Accounts 与原生 Chat 已隐藏。" title="Manage" style="margin-top:auto">⚙</button>
+    </nav>
+    <aside class="files" id="files" hidden><strong>demo-project</strong><button id="sourceFile">main.tex</button><button id="resultFile">main.pdf · 演示结果</button></aside>
+    <main class="center">
+      <div class="panehead"><strong id="editorTitle">main.tex</strong><div class="actions"><button id="openResult">打开演示结果</button><button id="backSource" hidden>返回源码</button></div></div>
+      <section class="editor" id="sourcePane"><textarea class="code" aria-label="演示源码" spellcheck="false">\documentclass{article}
+\title{OpenCode IDE}
 \begin{document}
 \maketitle
-\begin{abstract}
-We investigate an integrated scientific
-writing workflow combining an AI agent,
-LaTeX editing, and PDF validation.
-\end{abstract}
-
-\section{Introduction}
-Foundation models are advancing scientific
-workflows~\cite{vaswani2017attention}.
-
-\section{Method}
-Our system separates editing from output.
-\begin{equation}
-  \mathcal{L}=\mathcal{L}_{task}
-  +\lambda\mathcal{L}_{feedback}
-\end{equation}
-
-\section{Experiments}
-We evaluate iterative agent workflows.
-
-\bibliographystyle{IEEEtran}
-\bibliography{references}
-\end{document}`,'references.bib':`@inproceedings{vaswani2017attention,
-  title={Attention Is All You Need},
-  author={Vaswani, Ashish and others},
-  booktitle={NeurIPS},
-  year={2017}
-}
-`,'intro.tex':`\\section{Introduction}\nThis is an introduction chapter.\n`,'method.tex':`\\section{Method}\nThis is a method chapter.\n`};let current='main.tex',dirty=false,build=12,zoom=100,logTab='output',logHtml=$('#log').innerHTML,expanded=false,runCollapsed=false;
-function setSource(file){files[current]=$('#source').value;current=file;$('#source').value=files[file]??'';dirty=false;renderGutter();$('#sourceStatus').textContent=`${file.endsWith('.bib')?'BibTeX':'TeX'} · UTF-8 · 已保存`;$$('[data-code]').forEach(b=>b.classList.toggle('active',b.dataset.code===file));$$('[data-file]').forEach(b=>b.classList.toggle('selected',b.dataset.file===file));if(!$$(`[data-code="${CSS.escape(file)}"]`).length){const b=document.createElement('button');b.className='filetab active';b.dataset.code=file;b.textContent='◈ '+file;$('#fileTabs').appendChild(b);b.onclick=()=>setSource(file)};$('#source').focus()}
-function renderGutter(){const n=$('#source').value.split('\n').length;$('#gutter').textContent=Array.from({length:n},(_,i)=>String(i+1)).join('\n')}
-$('#source').value=files[current];renderGutter();$('#source').addEventListener('input',()=>{files[current]=$('#source').value;dirty=true;$('#sourceStatus').textContent=`${current} · 未保存 ●`;renderGutter()});$('#source').addEventListener('keydown',e=>{if(e.key==='Tab'){e.preventDefault();let el=e.target,start=el.selectionStart;el.setRangeText('  ',start,el.selectionEnd,'end');el.dispatchEvent(new Event('input'))}});
-$$('[data-code]').forEach(b=>b.onclick=()=>setSource(b.dataset.code));$$('[data-file]').forEach(b=>b.onclick=()=>{showLeft('files');setSource(b.dataset.file)});$$('[data-result]').forEach(b=>b.onclick=()=>$('#pdfscroll').scrollTo({top:0,behavior:'smooth'}));
-function save(){files[current]=$('#source').value;dirty=false;$('#sourceStatus').textContent=`${current} · UTF-8 · 已保存`;toast('源文件已保存（原型内存状态）')};$('#saveBtn').onclick=save;window.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();save()}if(e.ctrlKey&&e.altKey&&e.key.toLowerCase()==='b'){e.preventDefault();compile()}});
-function showLeft(id){$$('[data-left]').forEach(b=>b.classList.toggle('active',b.dataset.left===id));$$('[id^="left-"]').forEach(p=>p.classList.toggle('hidden',p.id!==`left-${id}`))};$$('[data-left]').forEach(b=>b.onclick=()=>showLeft(b.dataset.left));
-function showRight(id){$$('[data-right]').forEach(b=>b.classList.toggle('active',b.dataset.right===id));$$('[id^="right-"]').forEach(p=>p.classList.toggle('hidden',p.id!==`right-${id}`))};$$('[data-right]').forEach(b=>b.onclick=()=>showRight(b.dataset.right));$('#pluginShortcut').onclick=()=>showRight('plugins');
-const pluginData=[{id:'workshop',name:'LaTeX Workshop',desc:'编译 PDF · 正向 / 反向 SyncTeX · LaTeX 智能补全',status:'运行中',actions:['▶ 构建 PDF','↗ 同步到 PDF']},{id:'ltex',name:'LTeX / LanguageTool',desc:'英语语法与学术写作检查（按工作区配置）',status:'运行中',actions:['✓ 检查英文','⚙ 规则设置']},{id:'bib',name:'BibTeX Language Support',desc:'参考文献补全 · 格式检测 · Bib 条目跳转',status:'已启用',actions:['▣ 打开 BibTeX','⌕ 搜索引用']}];const active=new Set(pluginData.map(p=>p.id));function renderPlugins(){let el=$('#activePlugins');el.innerHTML='';pluginData.filter(p=>active.has(p.id)).forEach(p=>{const div=document.createElement('div');div.className='plugin';div.innerHTML=`<div class="pluginhead"><span class="pluginname">${p.name}</span><span class="tag">● ${p.status}</span></div><div class="plugintext">${p.desc}</div><div class="plugactions">${p.actions.map((a,i)=>`<button class="secondary" data-plugin-action="${p.id}:${i}" style="flex:1;font-size:10px">${a}</button>`).join('')}</div><div style="text-align:right;margin-top:7px"><button class="tinybtn" data-disable="${p.id}" style="font-size:10px;color:#8298b2">停用演示</button></div>`;el.appendChild(div)});$('#count').textContent=active.size;$('#pluginCountLabel').textContent=active.size+' 个';$$('[data-disable]').forEach(b=>b.onclick=()=>{active.delete(b.dataset.disable);renderPlugins();toast('插件演示状态已变更')});$$('[data-plugin-action]').forEach(b=>b.onclick=()=>pluginAction(b.dataset.pluginAction))}renderPlugins();function pluginAction(code){if(code==='workshop:0')compile();else if(code==='workshop:1'||code==='ltex:0')toast(code==='ltex:0'?'已触发语法检测（演示）':'SyncTeX 定位已触发（演示）');else if(code==='bib:0')setSource('references.bib');else toast('操作已触发（演示）')}
-let compileTimer;function compile(){save();clearTimeout(compileTimer);$('#pdfStatus').textContent='⟳ 正在编译 PDF...';$('#taskStatus').textContent='编译中';showLog('output');logHtml=`[LaTeX Workshop] Recipe: latexmk (pdfLaTeX)\n[Running] latexmk -pdf main.tex\n[Running] pdflatex -interaction=nonstopmode main.tex\n`;$('#log').textContent=logHtml;toast('模拟启动 LaTeX 编译');compileTimer=setTimeout(()=>{build++;$('#pdfVersion').textContent='· 构建 #'+build;$('#pdfStatus').textContent='✓ 最近编译成功 · 刚刚';$('#taskStatus').textContent='已成功';logHtml=`[LaTeX Workshop] Recipe: latexmk (pdfLaTeX)\n[latexmk] Running pdflatex...\n[latexmk] Running bibtex...\n[latexmk] Running pdflatex...\n<span class="ok">[Success]</span> PDF built: main.pdf · build #${build}\n<span class="ok">[Success]</span> 0 errors, 0 warnings · SyncTeX ready\n`;if(logTab==='output')$('#log').innerHTML=logHtml;toast('PDF 编译完成 · 右侧结果窗口已刷新')},950)}$('#compileTop').onclick=compile;$('#processRun').onclick=compile;$('#toolCompile').onclick=compile;
-function showLog(which){logTab=which;$$('[data-logtab]').forEach(b=>b.classList.toggle('active',b.dataset.logtab===which));$('#runlog').style.height=runCollapsed?'160px':'160px';runCollapsed=false;if(which==='output')$('#log').innerHTML=logHtml;else if(which==='problems')$('#log').innerHTML='<span class="ok">✓ 目前无错误或警告。</span>\n检查结果来自上一次编译（演示）。';else $('#log').textContent='✓ Agent 读取 main.tex\n✓ Agent 检查 references.bib\n✓ Agent 运行 latexmk\n✓ PDF 输出就绪\n○ 等待下一条指令';}$$('[data-logtab]').forEach(b=>b.onclick=()=>showLog(b.dataset.logtab));$('#toggleLog').onclick=()=>{runCollapsed=!runCollapsed;$('#runlog').style.height=runCollapsed?'34px':'160px';$('#toggleLog').textContent=runCollapsed?'⌃':'⌄'};$('#processLog').onclick=()=>showLog('task');$('#toolErrors').onclick=()=>showLog('problems');$('#toolForward').onclick=()=>toast('从 TeX 到 PDF 的 SyncTeX 定位（演示）');$('#toolBib').onclick=()=>setSource('references.bib');$('#toolClean').onclick=()=>toast('构建缓存已清理（演示）');$('#toolAgent').onclick=()=>{showRight('chat');$('#prompt').value='请分析最近一次 latexmk 编译日志，并提出修复建议。';$('#prompt').focus()};
-function zoomApply(){zoom=Math.max(65,Math.min(150,zoom));$('#paper').style.zoom=(zoom/100).toString();$('#zoomLabel').textContent=zoom+'%'}$('#zoomOut').onclick=()=>{zoom-=10;zoomApply()};$('#zoomIn').onclick=()=>{zoom+=10;zoomApply()};$('#resultRefresh').onclick=()=>toast('已刷新最新 PDF 编译结果（演示）');$('#equalSplit').onclick=()=>{$('#splitRange').value=50;document.documentElement.style.setProperty('--editratio','50%')};$('#splitRange').oninput=e=>document.documentElement.style.setProperty('--editratio',e.target.value+'%');let dragging=false;$('#drag').addEventListener('pointerdown',e=>{dragging=true;e.target.setPointerCapture(e.pointerId)});$('#drag').addEventListener('pointermove',e=>{if(!dragging)return;const r=$('#split').getBoundingClientRect();const v=Math.max(30,Math.min(70,100*(e.clientX-r.left)/r.width));document.documentElement.style.setProperty('--editratio',v+'%');$('#splitRange').value=v});$('#drag').addEventListener('pointerup',()=>dragging=false);$('#swapViews').onclick=()=>{const split=$('#split');const editor=$('#editorPane'),pdf=$('#pdfPane'),drag=$('#drag');if(split.firstElementChild===editor){split.append(pdf,drag,editor)}else split.append(editor,drag,pdf);toast('源码窗口与结果窗口位置已互换')};
-$$('[data-session]').forEach(b=>b.onclick=()=>{$$('[data-session]').forEach(x=>x.classList.toggle('selected',x.dataset.session===b.dataset.session));$('#processSession').textContent=b.dataset.session;$('.right .sidehead div[style]')?.replaceChildren(document.createTextNode(b.dataset.session));showRight('chat');toast('已切换 Session（界面演示）')});$('#newSession').onclick=()=>toast('新建 Session（界面演示）');$('#addProject').onclick=()=>toast('添加项目（界面演示）');$('#managePlugins').onclick=()=>{active.clear();pluginData.forEach(p=>active.add(p.id));renderPlugins();toast('已恢复所有演示插件；真实版本接入扩展市场和安装管理')};$('#rightExpand').onclick=()=>{expanded=!expanded;document.documentElement.style.setProperty('--wright',expanded?'455px':'345px');$('#rightExpand').title=expanded?'收窄 Agent 面板':'加宽 Agent 面板'};$('#settingsBtn').onclick=()=>toast('设置：布局偏好、模型、工作区与插件管理（演示）');$('#editFocus').onclick=()=>$('#source').focus();$('#pdfTab').onclick=()=>$('#pdfscroll').scrollTo({top:0,behavior:'smooth'});
-$('#send').onclick=sendPrompt;$('#prompt').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendPrompt()}});function escapeHtml(str){return str.replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]))}function sendPrompt(){const val=$('#prompt').value.trim();if(!val)return;showRight('chat');$('#chatHistory').insertAdjacentHTML('beforeend',`<div class="chatmsg user"><div class="chatname">YOU · 刚刚</div>${escapeHtml(val)}</div><div class="chatmsg assistant"><div class="chatname">✦ OPENCODE · UI 原型</div><p>已收到任务。当前是独立 HTML 交互演示，尚未连接实际 Agent。你可以在右侧查看工具和插件，在中间分别编辑 TeX、预览编译结果。</p></div>`);$('#prompt').value='';$('#right-chat').scrollTop=$('#right-chat').scrollHeight}
-let toastTimer;function toast(msg){let n=$('#toast');if(!n){n=document.createElement('div');n.id='toast';n.style.cssText='position:fixed;bottom:17px;left:50%;transform:translateX(-50%);background:#263a50;color:#e9f3ff;border:1px solid #486380;border-radius:9px;z-index:50;padding:10px 15px;box-shadow:0 8px 24px #0008;font-size:12px;max-width:85vw;text-align:center;';document.body.appendChild(n)}n.textContent=msg;n.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>n.style.display='none',2800)}
+Edit source in the central editor.
+Open results only when needed.
+Chat with OpenCode in the right sidebar.
+\end{document}</textarea></section>
+      <section class="editor page" id="resultPane" hidden><h1>演示结果预览</h1><p>此处代表用户主动打开的 PDF、图片或其他结果文件；本页没有执行编译，也没有加载真实 PDF。</p><p>实际 IDE 使用当前编辑组中的原生预览扩展。关闭或切回文件标签后继续编辑源码。</p></section>
+      <section class="editor page settings" id="settingsPane" hidden><h2>OpenCode Settings · 演示</h2><p>实际设置页由右侧齿轮打开，不占右侧标签。演示不读取或保存密钥，请勿输入真实凭据。</p>
+        <form id="settingsForm"><label>服务商 ID<input name="provider" value="example-provider"></label><label>API Key<input type="password" disabled placeholder="演示不接受真实 API Key"></label><label>API Base URL<input type="url" value="https://api.example.com/v1"></label><label>默认模型<input value="example-provider/example-model"></label><label>默认 Agent<select><option>build</option><option>plan</option></select></label><button type="submit">演示保存</button><button type="button" id="restartDemo">重启服务（演示）</button></form>
+      </section>
+      <section class="terminal"><div class="panehead">Terminal / Output / Problems</div><pre>$ 工作区终端
+布局原型：不会执行系统命令。</pre></section>
+    </main>
+    <aside class="right" aria-label="OpenCode 工作区">
+      <header class="panehead"><span class="brand">◈ OpenCode</span><div class="actions"><button id="newSession" aria-label="Quick New Session" title="Quick New Session">＋</button> <button id="settingsButton" aria-label="OpenCode Settings" title="OpenCode Settings">⚙</button></div></header>
+      <nav class="tabs" role="tablist" aria-label="OpenCode 模块">
+        <button role="tab" id="tab-chat" aria-controls="panel-chat" aria-selected="true" data-tab="chat">OpenCode</button>
+        <button role="tab" id="tab-sessions" aria-controls="panel-sessions" aria-selected="false" data-tab="sessions">Sessions</button>
+        <button role="tab" id="tab-todo" aria-controls="panel-todo" aria-selected="false" data-tab="todo">Todo</button>
+        <button role="tab" id="tab-subagents" aria-controls="panel-subagents" aria-selected="false" data-tab="subagents">Subagents</button>
+        <button role="tab" id="tab-files" aria-controls="panel-files" aria-selected="false" data-tab="files">Modified Files</button>
+      </nav>
+      <section class="module" id="panel-chat" role="tabpanel" aria-labelledby="tab-chat"><div id="messages"><div class="message">OpenCode 聊天区域（演示）
+在实际 IDE 中连接模型后，可以查询项目、查看工具执行和处理权限请求。</div></div><form id="composer"><textarea id="prompt" aria-label="演示聊天输入" placeholder="输入示例内容，不会发送给模型"></textarea><small>example-provider / example-model · 演示</small><button type="submit">发送演示消息</button></form></section>
+      <section class="module" id="panel-sessions" role="tabpanel" aria-labelledby="tab-sessions" hidden><h3>演示会话</h3><div id="sessionList"><button class="session" data-session="示例会话">示例会话</button></div></section>
+      <section class="module" id="panel-todo" role="tabpanel" aria-labelledby="tab-todo" hidden><h3>Todo</h3><p>演示任务，不代表 Agent 已执行。</p><label><input type="checkbox"> 阅读项目文件</label><p><label><input type="checkbox"> 检查运行结果</label></p></section>
+      <section class="module" id="panel-subagents" role="tabpanel" aria-labelledby="tab-subagents" hidden><h3>Subagents</h3><p>当前演示无子任务。实际列表跟随选中会话。</p></section>
+      <section class="module" id="panel-files" role="tabpanel" aria-labelledby="tab-files" hidden><h3>Modified Files</h3><p>当前演示未修改磁盘文件。实际列表显示当前会话的变更。</p></section>
+    </aside>
+  </div>
+  <footer class="status"><span id="notice" role="status" aria-live="polite">演示：结果默认关闭，聊天只在右侧。</span><button id="syncDemo">↻ Extensions</button></footer>
+</div>
+<script>
+  const $ = id => document.getElementById(id)
+  const notice = text => { $('notice').textContent = text }
+  function showTab(id) {
+    document.querySelectorAll('[data-tab]').forEach(button => { button.setAttribute('aria-selected', String(button.dataset.tab === id)) })
+    document.querySelectorAll('[role="tabpanel"]').forEach(panel => { panel.hidden = panel.id !== 'panel-' + id })
+  }
+  function showEditor(id) {
+    for (const pane of ['source', 'result', 'settings']) $(pane + 'Pane').hidden = pane !== id
+    $('editorTitle').textContent = { source: 'main.tex', result: 'main.pdf · 演示', settings: 'OpenCode Settings' }[id]
+    $('backSource').hidden = id === 'source'
+  }
+  document.querySelectorAll('[data-tab]').forEach(button => { button.onclick = () => showTab(button.dataset.tab) })
+  document.querySelectorAll('[data-note]').forEach(button => { button.onclick = () => notice(button.dataset.note) })
+  $('filesToggle').onclick = () => { $('files').hidden = !$('files').hidden; $('filesToggle').setAttribute('aria-expanded', String(!$('files').hidden)) }
+  $('openResult').onclick = $('resultFile').onclick = () => showEditor('result')
+  $('backSource').onclick = $('sourceFile').onclick = () => showEditor('source')
+  $('settingsButton').onclick = () => showEditor('settings')
+  let count = 0
+  $('newSession').onclick = () => {
+    count++
+    const name = '新会话 ' + count
+    const button = document.createElement('button'); button.className = 'session'; button.dataset.session = name; button.textContent = name
+    $('sessionList').prepend(button); $('messages').replaceChildren(); showTab('chat'); notice(name + '（仅浏览器内演示）')
+  }
+  $('sessionList').onclick = event => { const button = event.target.closest('[data-session]'); if (button) { showTab('chat'); notice('选中：' + button.dataset.session) } }
+  $('composer').onsubmit = event => {
+    event.preventDefault(); const text = $('prompt').value.trim(); if (!text) return
+    const message = document.createElement('div'); message.className = 'message'; message.textContent = text + '\n\n[演示：未发送到模型]'
+    $('messages').append(message); $('prompt').value = ''; message.scrollIntoView({ block: 'nearest' })
+  }
+  $('settingsForm').onsubmit = event => { event.preventDefault(); notice('仅演示保存动作，没有写入配置文件。') }
+  $('restartDemo').onclick = () => notice('实际 IDE 中请等待任务结束后重启 OpenCode 服务；本页未启动服务。')
+  $('syncDemo').onclick = () => notice('演示：同步 Open VSX 可用的扩展，含 ms-*；不操作任何扩展目录。')
 </script>
-</body></html>
+</body>
+</html>
