@@ -84,6 +84,8 @@ unset OPENCODE_IDE_USERNAME OPENCODE_IDE_PASSWORD
 
 这些检查可能创建空 OpenCode 会话；请对测试项目运行。若要同时隔离 CLI 的全局数据，可设置临时的 `XDG_CONFIG_HOME`、`XDG_DATA_HOME`、`XDG_CACHE_HOME`。默认扩展同步会访问当前用户 SSH 目录；测试实例可设置 `VSCODE_AGENT_FOLDER=/path/to/nonexistent-test-ssh` 禁用发现。
 
+默认工作区是 `examples/python-demo`。先运行 `python3 examples/python-demo/main.py`，再设置 `OPENCODE_IDE_TEST_RESULT=1 npm run test:browser`，可额外验证生成的 `summary.json` 在当前编辑组打开。`npm test` 也会在临时目录验证示例统计和报告内容。
+
 ## 原型验收
 
 ```bash

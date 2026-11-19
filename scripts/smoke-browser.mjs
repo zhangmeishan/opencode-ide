@@ -29,7 +29,7 @@ async function command(title, opensPicker = false) {
 }
 
 try {
-  await page.goto(process.env.OPENCODE_IDE_URL || `http://127.0.0.1:3100/?folder=${encodeURIComponent(path.join(root, "examples/latex-demo"))}`)
+  await page.goto(process.env.OPENCODE_IDE_URL || `http://127.0.0.1:3100/?folder=${encodeURIComponent(path.join(root, "examples/python-demo"))}`)
   const login = page.locator('form[action="/login"]')
   if (await login.isVisible({ timeout: 3000 }).catch(() => false)) {
     if (!process.env.OPENCODE_IDE_USERNAME || !process.env.OPENCODE_IDE_PASSWORD) throw new Error("Set OPENCODE_IDE_USERNAME and OPENCODE_IDE_PASSWORD for the authenticated browser test")
@@ -41,7 +41,7 @@ try {
   if (page.url().includes("/login")) await page.waitForURL(url => !url.pathname.includes("/login"), { timeout: 15000 })
   const trust = page.getByRole("button", { name: /Yes, I trust|是，我信任/ })
   if (await trust.isVisible({ timeout: 3000 }).catch(() => false)) await trust.click()
-  await page.getByText("main.tex", { exact: true }).first().waitFor({ timeout: 60000 })
+  await page.getByText("main.py", { exact: true }).first().waitFor({ timeout: 60000 })
   await page.waitForTimeout(5000)
   if (await page.getByText(/Restricted Mode is intended for safe code browsing/).isVisible().catch(() => false)) {
     await command("Workspaces: Manage Workspace Trust")
@@ -52,19 +52,19 @@ try {
     if (await confirm.isVisible().catch(() => false)) await confirm.click()
   }
   if (process.env.OPENCODE_IDE_EXPECT_AUTO_LAYOUT !== "1") await command("OpenCode IDE: Restore Default Layout")
-  await page.getByText("main.tex", { exact: true }).first().waitFor({ timeout: 60000 })
+  await page.getByText("main.py", { exact: true }).first().waitFor({ timeout: 60000 })
   await page.locator(".editor-group-container").first().waitFor({ timeout: 60000 })
   assert.equal(await page.locator(".editor-group-container").count(), 1)
   assert.equal(await page.locator(".editor-group-container").count(), 1, "Result group stays closed until a result is selected")
   await page.locator('[id="workbench.parts.auxiliarybar"]').waitFor({ state: "visible" })
   assert.equal(await page.locator('[id="workbench.parts.sidebar"]').isVisible(), false, "Primary sidebar is hidden by default")
   await page.locator('[id="workbench.parts.panel"]').waitFor({ state: "visible" })
-  await page.locator(".editor-group-container").first().getByRole("tab", { name: /main.tex/ }).click()
+  await page.locator(".editor-group-container").first().getByRole("tab", { name: /main\.py/ }).click()
   await command("File: Revert File")
   await command("OpenCode IDE: Open in Result Group", true)
   await page.locator(".quick-input-widget input").waitFor({ state: "visible" })
   await page.keyboard.press("Escape")
-  await page.locator(".editor-group-container").first().getByRole("tab", { name: /main.tex/ }).click()
+  await page.locator(".editor-group-container").first().getByRole("tab", { name: /main\.py/ }).click()
   await page.waitForFunction(() => {
     const frames = [...document.querySelectorAll('iframe')]
     return frames.length >= 2
@@ -95,18 +95,18 @@ try {
   await assertChatLayout()
   await command("OpenCode: New Session")
   await assertChatLayout()
-  await page.locator(".editor-group-container").first().getByRole("tab", { name: /main.tex/ }).click()
+  await page.locator(".editor-group-container").first().getByRole("tab", { name: /main\.py/ }).click()
   await command("OpenCode: Ask About Current File")
   await page.waitForFunction(() => [...document.querySelectorAll('iframe')].length >= 2)
   agent = await agentFrame()
-  await agent.locator(".oc-composerInput").filter({ hasText: /main.tex/ }).waitFor({ timeout: 30000 })
+  await agent.locator(".oc-composerInput").filter({ hasText: /main\.py/ }).waitFor({ timeout: 30000 })
   await assertChatLayout()
   await page.screenshot({ path: path.join(output, "phase2-workbench.png") })
   const groupsBefore = await page.locator(".editor-group-container").evaluateAll(groups => groups.map(group => ({ width: group.getBoundingClientRect().width, text: group.textContent?.slice(0, 150) })))
   await page.waitForTimeout(6000)
   await page.reload()
   await page.locator(".editor-group-container").first().waitFor({ timeout: 60000 })
-  await page.getByText("main.tex", { exact: true }).first().waitFor({ timeout: 60000 })
+  await page.getByText("main.py", { exact: true }).first().waitFor({ timeout: 60000 })
   assert.equal(await page.locator(".editor-group-container").count(), 1)
   await page.locator('[id="workbench.parts.auxiliarybar"]').waitFor({ state: "visible" })
   agent = await agentFrame()
@@ -121,18 +121,18 @@ try {
   assert.equal(groupsAfter.length, 1, "Result group stays closed after reload unless opened explicitly")
   await page.screenshot({ path: path.join(output, "phase2-restored.png") })
   const report = { url: page.url(), groupsBefore, groupsAfter, pageErrors: errors, checks: ["authenticated workbench", "single editor group", "results closed by default", "original Agent composer and ready session", "native Chat removed", "new session stays in right sidebar", "file context seeded in right sidebar", "reload persistence"] }
-  if (process.env.OPENCODE_IDE_TEST_PDF === "1") {
+  if (process.env.OPENCODE_IDE_TEST_RESULT === "1") {
     await command("OpenCode IDE: Files")
     await command("OpenCode IDE: Open in Result Group", true)
     const pathInput = page.locator(".quick-input-widget input")
     await pathInput.waitFor({ state: "visible" })
-    await pathInput.fill(path.join(root, "examples/latex-demo/main.pdf"))
+    await pathInput.fill(path.join(root, "examples/python-demo/output/summary.json"))
     await page.keyboard.press("Enter")
-    await page.locator(".editor-group-container").first().getByRole("tab", { name: /main.pdf/ }).waitFor({ timeout: 30000 })
+    await page.locator(".editor-group-container").first().getByRole("tab", { name: /summary\.json/ }).waitFor({ timeout: 30000 })
     assert.equal(await page.locator(".editor-group-container").count(), 1)
     await page.waitForTimeout(5000)
-    await page.screenshot({ path: path.join(output, "phase2-pdf.png") })
-    report.checks.push("selected PDF opens in current editor group (rendering not asserted)")
+    await page.screenshot({ path: path.join(output, "result-preview.png") })
+    report.checks.push("selected Python JSON output opens in current editor group")
   }
   await writeFile(path.join(output, "phase2-browser.json"), JSON.stringify(report, null, 2))
   console.log(JSON.stringify(report, null, 2))

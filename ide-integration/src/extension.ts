@@ -65,7 +65,7 @@ export async function activate(ctx: vscode.ExtensionContext) {
     out.appendLine("Initializing single editor and right OpenCode sidebar")
     results.close()
     await vscode.commands.executeCommand("vscode.setEditorLayout", defaultLayout())
-    const candidates = await vscode.workspace.findFiles("main.tex", "**/{node_modules,.git}/**", 1)
+    const candidates = await vscode.workspace.findFiles("main.py", "**/{node_modules,.git,.venv}/**", 1)
     const source = candidates[0]
     if (source) await vscode.window.showTextDocument(source, { viewColumn: vscode.ViewColumn.One, preview: false })
     else await vscode.commands.executeCommand("workbench.action.focusFirstEditorGroup")

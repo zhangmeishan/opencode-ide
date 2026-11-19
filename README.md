@@ -30,7 +30,7 @@ bash scripts/deploy-service.sh
 | `opencode-extension/` | OpenCode IDE Chat，ID `opencode-ide.opencode-ide-chat` |
 | `ide-integration/` | OpenCode IDE Workbench：布局、项目、结果和扩展同步 |
 | `scripts/`、`config/` | 构建、登录、启动、部署和配置模板 |
-| `examples/latex-demo/` | 可选 LaTeX 示例 |
+| `examples/python-demo/` | 仅用 Python 标准库的 CSV 汇总与报告示例 |
 | `reference/prototype.html` | 可独立打开的交互布局示意，不连接真实模型或执行命令 |
 
 ## 开发与验证

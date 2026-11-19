@@ -80,4 +80,4 @@ WebUI 登录、OpenCode 服务商凭据和 VS Code Accounts 是不同概念。Op
 
 [prototype.html](../reference/prototype.html) 是无后端的交互布局示意，用于展示五标签、按需结果和设置入口，不启动服务、不保存真实凭据、不调用模型、不执行代码。实际网页由 code-server 提供。
 
-模型请求、工具权限、实际文件修改、特定扩展兼容性和 LaTeX 自动修复闭环需在目标环境单独验收。可复现检查及已知失败见 [testing.md](testing.md)。
+默认示例 `examples/python-demo` 用 Python 标准库生成 JSON 和 HTML 报告，无需额外语言插件。模型请求、工具权限、实际文件修改和特定扩展兼容性需在目标环境单独验收。可复现检查及已知失败见 [testing.md](testing.md)。

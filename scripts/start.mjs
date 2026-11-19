@@ -6,7 +6,7 @@ import { createAuthGateway } from "./auth.mjs"
 import { hideAccounts } from "./workbench-state.mjs"
 
 await access(path.join(runtime, "code-server.yaml"))
-const workspace = path.resolve(process.argv[2] || path.join(root, "examples/latex-demo"))
+const workspace = path.resolve(process.argv[2] || path.join(root, "examples/python-demo"))
 await access(workspace)
 const bind = process.env.OPENCODE_IDE_BIND || "127.0.0.1:3100"
 const credentials = JSON.parse(await readFile(path.join(runtime, "auth.json"), "utf8").catch(() => { throw new Error("请先配置 WebUI 登录账号：npm run auth") }))

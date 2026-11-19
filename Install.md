@@ -85,11 +85,26 @@ npm test
 
 如果仓库是私有仓库，先配置 GitHub SSH key 或使用已登录的 `gh repo clone`。不要将 GitHub token 写入 remote URL 或配置文件。
 
-`npm run doctor` 会检查 Node/npm、Bun、Python、code-server、OpenCode；TeX 工具为可选检查。`npm run build` 会用 `bun install --frozen-lockfile` 安装聊天扩展依赖，不需要分别手动安装。
+`npm run doctor` 会检查 Node/npm、Bun、Python、code-server、OpenCode。`npm run build` 会用 `bun install --frozen-lockfile` 安装聊天扩展依赖，不需要分别手动安装。
 
 ## 5. 设置 WebUI 登录凭据
 
-部署默认从源码目录 `config/ide-login.json` 读取，最低密码长度为 8 个字符。交互生成 JSON 可以避免引号转义问题和把密码写入 shell 历史：
+部署默认从源码目录 `config/ide-login.json` 读取，最低密码长度为 8 个字符。该文件被 `.gitignore` 忽略，不会提交到 GitHub；首次克隆后需要自行创建。JSON 格式如下：
+
+```json
+{
+  "username": "user",
+  "password": "example.passwd"
+}
+```
+
+上面是格式示例，实际部署时请填写自己的用户名和密码，并设置文件权限：
+
+```bash
+chmod 600 config/ide-login.json
+```
+
+也可以交互生成 JSON，避免引号转义问题和把密码写入 shell 历史：
 
 ```bash
 python3 - <<'PY'
@@ -115,17 +130,15 @@ git check-ignore config/ide-login.json
 
 WebUI 登录凭据不是 OpenCode API Key，也不是 Linux/sudo 密码。
 
-## 6. 可选：LaTeX 工作流
+## 6. 运行 Python 示例
 
-需要编译示例时安装：
+默认示例只使用 Python 3 标准库，无需 pip 或额外插件：
 
 ```bash
-sudo apt install -y latexmk texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
-latexmk -v
-pdflatex --version
+python3 examples/python-demo/main.py
 ```
 
-部署默认安装 LaTeX Workshop 10.20.0；完全不使用 LaTeX 时设置 `INSTALL_LATEX=false`。单独安装预览扩展不会自动安装 TeX 编译器。
+读取示例 CSV，在终端输出统计并生成 `examples/python-demo/output/summary.json` 和 `report.html`。JSON 可在编辑器直接打开，HTML 可下载到浏览器查看；IDE 内 HTML 预览可自行安装相应扩展。输出目录已忽略。部署只安装本项目两个扩展，不自动安装 Python 或其他语言插件。
 
 ## 7. 首次系统服务部署
 
@@ -145,17 +158,16 @@ NODE_BIN="$(command -v node)" \
 | `INSTALL_DIR` | `~/opencode-ide`，不能与源码目录相同或位于源码目录下 |
 | `DATA_DIR` | `$INSTALL_DIR/data`，设置、布局、登录哈希、扩展和日志 |
 | `PORT` / `BIND_HOST` | `2030` / `0.0.0.0`，公开认证网关 |
-| `WORKSPACE_DIR` | `$INSTALL_DIR/examples/latex-demo`；可指定已有目录或 `.code-workspace` |
+| `WORKSPACE_DIR` | `$INSTALL_DIR/examples/python-demo`；可指定已有目录或 `.code-workspace` |
 | `RUN_USER` / `RUN_HOME` | 当前普通用户及其主目录 |
-| `EXTRA_PATH` | 额外工具路径；自行安装的 TeX、语言工具可在此补充 |
-| `INSTALL_LATEX` | `true`，设为 `false` 跳过安装 LaTeX Workshop |
+| `EXTRA_PATH` | 额外工具路径；自行安装的语言工具可在此补充 |
 | `BUILD_FIRST` | `true`；`false` 仅使用已有 VSIX |
 | `SERVICE_NAME` | `opencode-ide` |
 
 自定义项目示例：
 
 ```bash
-WORKSPACE_DIR="$HOME/projects/my-project" INSTALL_LATEX=false \
+WORKSPACE_DIR="$HOME/projects/my-project" \
   bash scripts/deploy-service.sh
 ```
 

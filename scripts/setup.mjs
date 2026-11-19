@@ -18,4 +18,4 @@ for (const name of ["opencode-ide-chat", "opencode-ide-integration"]) {
 }
 run(process.execPath, [path.join(root, "scripts/remove-legacy-chat.mjs"), codeServer, userData, extensions])
 console.log(`OpenCode IDE prepared: ${runtime}`)
-console.log("LaTeX Workshop: install with the isolated extension manager, or run the README command before PDF testing.")
+console.log("Default example: examples/python-demo — run python3 main.py in the workspace terminal.")

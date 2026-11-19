@@ -12,8 +12,5 @@
   "window.commandCenter": true,
   "files.autoSave": "off",
   "opencode-ide.initializeLayout": true,
-  "latex-workshop.view.pdf.viewer": "tab",
-  "latex-workshop.view.pdf.tab.editorGroup": "active",
-  "latex-workshop.latex.autoBuild.run": "never",
   "telemetry.telemetryLevel": "off"
 }

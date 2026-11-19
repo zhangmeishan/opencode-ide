@@ -61,18 +61,20 @@
       <button data-note="扩展同步：按 Open VSX ID 可用性判断，OpenCode 专用扩展排除。演示不安装扩展。" title="扩展">⊞</button>
       <button data-note="实际 IDE 的 Manage 设置入口。Accounts 与原生 Chat 已隐藏。" title="Manage" style="margin-top:auto">⚙</button>
     </nav>
-    <aside class="files" id="files" hidden><strong>demo-project</strong><button id="sourceFile">main.tex</button><button id="resultFile">main.pdf · 演示结果</button></aside>
+    <aside class="files" id="files" hidden><strong>python-demo</strong><button id="sourceFile">main.py</button><button id="resultFile">summary.json · 演示结果</button></aside>
     <main class="center">
-      <div class="panehead"><strong id="editorTitle">main.tex</strong><div class="actions"><button id="openResult">打开演示结果</button><button id="backSource" hidden>返回源码</button></div></div>
-      <section class="editor" id="sourcePane"><textarea class="code" aria-label="演示源码" spellcheck="false">\documentclass{article}
-\title{OpenCode IDE}
-\begin{document}
-\maketitle
-Edit source in the central editor.
-Open results only when needed.
-Chat with OpenCode in the right sidebar.
-\end{document}</textarea></section>
-      <section class="editor page" id="resultPane" hidden><h1>演示结果预览</h1><p>此处代表用户主动打开的 PDF、图片或其他结果文件；本页没有执行编译，也没有加载真实 PDF。</p><p>实际 IDE 使用当前编辑组中的原生预览扩展。关闭或切回文件标签后继续编辑源码。</p></section>
+      <div class="panehead"><strong id="editorTitle">main.py</strong><div class="actions"><button id="openResult">打开演示结果</button><button id="backSource" hidden>返回源码</button></div></div>
+      <section class="editor" id="sourcePane"><textarea class="code" aria-label="演示源码" spellcheck="false">import csv
+import json
+from pathlib import Path
+
+source = Path(__file__).with_name("data.csv")
+with source.open(encoding="utf-8") as stream:
+    rows = list(csv.DictReader(stream))
+total = sum(int(row["amount"]) for row in rows)
+print(json.dumps({"count": len(rows), "total": total}))
+</textarea></section>
+      <section class="editor page" id="resultPane" hidden><h1>演示结果预览</h1><p>此处代表用户主动打开的 Python 输出文件；本页没有执行 Python。</p><pre>{ "count": 6, "total": 150 }</pre><p>实际示例通过 python3 main.py 生成 JSON 和 HTML 报告，在当前编辑组中按需打开。</p></section>
       <section class="editor page settings" id="settingsPane" hidden><h2>OpenCode Settings · 演示</h2><p>实际设置页由右侧齿轮打开，不占右侧标签。演示不读取或保存密钥，请勿输入真实凭据。</p>
         <form id="settingsForm"><label>服务商 ID<input name="provider" value="example-provider"></label><label>API Key<input type="password" disabled placeholder="演示不接受真实 API Key"></label><label>API Base URL<input type="url" value="https://api.example.com/v1"></label><label>默认模型<input value="example-provider/example-model"></label><label>默认 Agent<select><option>build</option><option>plan</option></select></label><button type="submit">演示保存</button><button type="button" id="restartDemo">重启服务（演示）</button></form>
       </section>
@@ -107,7 +109,7 @@ Chat with OpenCode in the right sidebar.
   }
   function showEditor(id) {
     for (const pane of ['source', 'result', 'settings']) $(pane + 'Pane').hidden = pane !== id
-    $('editorTitle').textContent = { source: 'main.tex', result: 'main.pdf · 演示', settings: 'OpenCode Settings' }[id]
+    $('editorTitle').textContent = { source: 'main.py', result: 'summary.json · 演示', settings: 'OpenCode Settings' }[id]
     $('backSource').hidden = id === 'source'
   }
   document.querySelectorAll('[data-tab]').forEach(button => { button.onclick = () => showTab(button.dataset.tab) })

@@ -8,15 +8,13 @@ INSTALL_DIR="${INSTALL_DIR:-$RUN_HOME/opencode-ide}"   # 独立部署目录
 SOURCE_DIR="${SOURCE_DIR:-$(dirname "$(dirname "$(realpath "${BASH_SOURCE[0]}")")")}" # 已构建的源码目录
 BIND_HOST="${BIND_HOST:-0.0.0.0}"                     # 登录网关，供已有远程 HTTPS 代理访问
 PORT="${PORT:-2030}"                                # 与已有 2020 端口隔离
-WORKSPACE_DIR="${WORKSPACE_DIR:-$INSTALL_DIR/examples/latex-demo}"
+WORKSPACE_DIR="${WORKSPACE_DIR:-$INSTALL_DIR/examples/python-demo}"
 DATA_DIR="${DATA_DIR:-$INSTALL_DIR/data}"             # 设置、扩展、布局的持久化目录
 SERVICE_NAME="${SERVICE_NAME:-opencode-ide}"
 CODE_SERVER_BIN="${CODE_SERVER_BIN:-$RUN_HOME/.local/bin/code-server}"
 NODE_BIN="${NODE_BIN:-$(command -v node)}"
 OPENCODE_BIN="${OPENCODE_BIN:-$RUN_HOME/.opencode/bin/opencode}"
 EXTRA_PATH="${EXTRA_PATH:-$RUN_HOME/.local/bin:$RUN_HOME/.bun/bin}"
-INSTALL_LATEX="${INSTALL_LATEX:-true}"                # 安装独立 LaTeX Workshop
-LATEX_EXTENSION="${LATEX_EXTENSION:-james-yu.latex-workshop@10.20.0}"
 BUILD_FIRST="${BUILD_FIRST:-true}"                   # 默认构建最新源码；false：直接部署已有 VSIX
 CREDENTIALS_FILE="${CREDENTIALS_FILE:-${OPENCODE_IDE_CREDENTIALS_FILE:-}}" # JSON: username/password
 # ============================================================================
@@ -112,10 +110,10 @@ for folder in scripts config docs; do
   rsync -a "${excludes[@]}" "$SOURCE_DIR/$folder/" "$INSTALL_DIR/$folder/"
 done
 rsync -a "$SOURCE_DIR/README.md" "$SOURCE_DIR/Install.md" "$SOURCE_DIR/LICENSE" "$INSTALL_DIR/"
-mkdir -p "$INSTALL_DIR/artifacts" "$INSTALL_DIR/examples/latex-demo/.vscode"
+mkdir -p "$INSTALL_DIR/artifacts" "$INSTALL_DIR/examples/python-demo/.vscode"
 rsync -a "$SOURCE_DIR/artifacts/opencode-ide-chat.vsix" "$SOURCE_DIR/artifacts/opencode-ide-integration.vsix" "$INSTALL_DIR/artifacts/"
-for file in main.tex references.bib .vscode/extensions.json; do
-  [[ -e "$INSTALL_DIR/examples/latex-demo/$file" ]] || cp "$SOURCE_DIR/examples/latex-demo/$file" "$INSTALL_DIR/examples/latex-demo/$file"
+for file in main.py data.csv README.md .vscode/tasks.json; do
+  [[ -e "$INSTALL_DIR/examples/python-demo/$file" ]] || cp "$SOURCE_DIR/examples/python-demo/$file" "$INSTALL_DIR/examples/python-demo/$file"
 done
 [[ -d "$WORKSPACE_DIR" || -f "$WORKSPACE_DIR" ]] || fail "工作区不存在：$WORKSPACE_DIR"
 
@@ -141,8 +139,7 @@ current = json.loads(user_settings.read_text()) if user_settings.exists() else {
 for key, value in defaults.items():
     current.setdefault(key, value)
 current.update({'opencode-ide.initializeLayout': True, 'chat.disableAIFeatures': True,
-    'workbench.view.alwaysShowHeaderActions': True,
-    'latex-workshop.view.pdf.tab.editorGroup': 'active'})
+    'workbench.view.alwaysShowHeaderActions': True})
 current.setdefault('opencode-ide-chat.opencodePath', os.environ['OPENCODE_BIN'])
 user_settings.write_text(json.dumps(current, indent=2) + '\n')
 user_settings.chmod(0o600)
@@ -160,14 +157,6 @@ for artifact in opencode-ide-chat opencode-ide-integration; do
   fi
 done
 "$NODE_BIN" "$INSTALL_DIR/scripts/remove-legacy-chat.mjs" "$CODE_SERVER_BIN" "$DATA_DIR/user-data" "$DATA_DIR/extensions"
-if [[ "$INSTALL_LATEX" == true ]]; then
-  latex_id="${LATEX_EXTENSION%@*}"
-  latex_version="${LATEX_EXTENSION#*@}"
-  installed_extensions="$("$CODE_SERVER_BIN" --user-data-dir "$DATA_DIR/user-data" --extensions-dir "$DATA_DIR/extensions" --list-extensions --show-versions)"
-  if [[ "$installed_extensions" != *"$latex_id@$latex_version"* ]]; then
-    "$CODE_SERVER_BIN" --user-data-dir "$DATA_DIR/user-data" --extensions-dir "$DATA_DIR/extensions" --install-extension "$LATEX_EXTENSION"
-  fi
-fi
 
 # 生成独立启动器和 systemd unit，路径中的空格、引号及 % 均正确转义。
 export RUN_USER RUN_HOME NODE_BIN CODE_SERVER_BIN WORKSPACE_DIR SERVICE_NAME EXTRA_PATH
