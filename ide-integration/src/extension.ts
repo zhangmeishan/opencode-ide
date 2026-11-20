@@ -51,8 +51,11 @@ export async function activate(ctx: vscode.ExtensionContext) {
 
   async function openTerminal() {
     await vscode.commands.executeCommand("workbench.action.positionPanelBottom")
-    const terminal = vscode.window.terminals[0] ?? vscode.window.createTerminal({ name: "Workspace", cwd: vscode.workspace.workspaceFolders?.[0]?.uri })
+    const terminal = vscode.window.activeTerminal ?? vscode.window.terminals[0] ?? vscode.window.createTerminal({ name: "Workspace", cwd: vscode.workspace.workspaceFolders?.[0]?.uri })
     terminal.show(true)
+    for (const item of vscode.window.terminals) {
+      await vscode.commands.executeCommand("workbench.action.terminal.unsplit", item)
+    }
   }
 
   async function openAgent() {
@@ -127,6 +130,10 @@ export async function activate(ctx: vscode.ExtensionContext) {
     }
     await openAgent()
     await vscode.commands.executeCommand("workbench.action.closeSidebar")
+    await vscode.commands.executeCommand("workbench.action.positionPanelBottom")
+    for (const terminal of vscode.window.terminals) {
+      await vscode.commands.executeCommand("workbench.action.terminal.unsplit", terminal)
+    }
   }
   if (vscode.workspace.workspaceFolders?.length && shouldInitialize(enabled, ctx.workspaceState.get("layoutVersion"))) {
     try { await restoreLayout() } catch (error) {

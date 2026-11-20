@@ -7,6 +7,8 @@
   "workbench.editor.enablePreview": false,
   "workbench.secondarySideBar.defaultVisibility": "visible",
   "workbench.view.alwaysShowHeaderActions": true,
+  "terminal.integrated.defaultLocation": "view",
+  "terminal.integrated.tabs.enabled": false,
   "chat.disableAIFeatures": true,
   "window.title": "${activeEditorShort}${separator}${rootName}${separator}OpenCode IDE",
   "window.commandCenter": true,

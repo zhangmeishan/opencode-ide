@@ -5,6 +5,13 @@ import os from "node:os"
 import path from "node:path"
 import { test } from "node:test"
 import { hideAccounts } from "../../scripts/workbench-state.mjs"
+import { readFile } from "node:fs/promises"
+
+test("terminals stay in the bottom panel and use the compact session selector", async () => {
+  const settings = JSON.parse(await readFile(new URL("../../config/settings.json", import.meta.url), "utf8"))
+  assert.equal(settings["terminal.integrated.defaultLocation"], "view")
+  assert.equal(settings["terminal.integrated.tabs.enabled"], false)
+})
 
 test("Accounts is hidden in default and named profiles without changing unrelated state", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "ide-accounts-"))

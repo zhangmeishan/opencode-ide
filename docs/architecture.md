@@ -29,7 +29,7 @@ flowchart LR
 
 ## UI 与会话
 
-默认中间只有一个原生编辑组，左侧 Explorer 关闭但可以重新打开。Terminal、Output、Problems 使用原生底部面板。选择 PDF、图片等结果文件后，在当前组由对应扩展打开；不自动创建空结果区。
+默认中间只有一个原生编辑组，左侧 Explorer 关闭但可以重新打开。Terminal、Output、Problems 使用原生底部面板；多个终端会话通过标题栏下拉菜单切换，不显示占宽度的侧边列表，新终端固定进入底部面板。底部面板与上方编辑器分组独立。选择 PDF、图片等结果文件后，在当前组由对应扩展打开；不自动创建空结果区。
 
 右侧 Secondary Sidebar 提供五个原生标签：OpenCode、Sessions、Todo、Subagents、Modified Files。窄侧栏通过原生溢出菜单显示其余标签。各模块标题栏都有 Quick New Session 和 Settings；Settings 打开独立设置页面，不属于右侧标签。聊天打开、新建、切换和分支均路由到右侧。
 

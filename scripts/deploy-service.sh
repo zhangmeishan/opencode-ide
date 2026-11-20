@@ -139,7 +139,9 @@ current = json.loads(user_settings.read_text()) if user_settings.exists() else {
 for key, value in defaults.items():
     current.setdefault(key, value)
 current.update({'opencode-ide.initializeLayout': True, 'chat.disableAIFeatures': True,
-    'workbench.view.alwaysShowHeaderActions': True})
+    'workbench.view.alwaysShowHeaderActions': True,
+    'terminal.integrated.defaultLocation': 'view',
+    'terminal.integrated.tabs.enabled': False})
 current.setdefault('opencode-ide-chat.opencodePath', os.environ['OPENCODE_BIN'])
 user_settings.write_text(json.dumps(current, indent=2) + '\n')
 user_settings.chmod(0o600)
