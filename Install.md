@@ -65,7 +65,7 @@ export PATH="$HOME/.opencode/bin:$PATH"
 opencode --version
 ```
 
-已验证组合：code-server 4.145.2 / Code 1.145.2、OpenCode CLI 1.18.32。Workbench 要求 Code ≥1.114，且须支持 `viewsContainers.secondarySidebar`；仅版本满足不保证所有后续版本兼容。OpenCode CLI 更新后建议先在开发实例验证 SDK、配置及对话。
+已验证组合：code-server 4.145.2 / Code 1.145.2、OpenCode CLI 1.18.32 (不支持v2版本)。Workbench 要求 Code ≥1.114，且须支持 `viewsContainers.secondarySidebar`；仅版本满足不保证所有后续版本兼容。OpenCode CLI 更新后建议先在开发实例验证 SDK、配置及对话。
 
 不需要手动运行其他 code-server 或 `opencode serve` 服务。启动器负责私有 code-server，Chat 扩展负责每个工作区的 OpenCode 服务。
 
